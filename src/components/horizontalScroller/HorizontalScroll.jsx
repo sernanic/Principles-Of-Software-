@@ -14,7 +14,7 @@ function UserPost(sortBy = "POST_ASC") {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("allResearchPost")
+        const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("Biology")
             .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction)
             .onSnapshot((snapshot) => {
                 const newPost = snapshot.docs.map((doc) => ({
@@ -30,7 +30,7 @@ function UserPost(sortBy = "POST_ASC") {
 }
 
 const HorizontalScroll = () => {
-    const [sortBy, setSortBy] = useState("POST_ASC")
+    const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)
     return (
 

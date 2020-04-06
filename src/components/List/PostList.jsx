@@ -8,7 +8,7 @@ const SORT_OPTIONS = {
     "POST_DESC": { column: "datePosted", direction: "desc" },
 }
 
-function UserPost(sortBy = "POST_ASC") {
+function UserPost(sortBy = "POST_DESC") {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -30,7 +30,7 @@ function UserPost(sortBy = "POST_ASC") {
 
 
 const PostList = () => {
-    const [sortBy, setSortBy] = useState("POST_ASC")
+    const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)
     return (
         <div classContainer>
@@ -38,8 +38,8 @@ const PostList = () => {
             <div>
                 <label>Sort by</label>
                 <select value={sortBy} onChange={e => setSortBy(e.currentTarget.value)}>
-                    <option value="POST_ASC">Newest Posts</option>
-                    <option value="POST_DESC">Oldest Posts</option>
+                    <option value="POST_DESC">Newest Posts</option>
+                    <option value="POST_ASC">Oldest Posts</option>
                 </select>
             </div>
             <div className="verticalScroll">

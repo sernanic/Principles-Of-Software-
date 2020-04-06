@@ -1,8 +1,7 @@
 import React, { useState, Component } from 'react'
-import firebase from '../../firebase/index'
-import { storage } from '../../firebase/index'
-import './AddOpportunity.css'
-import Drawer from '../Drawer/Drawer'
+import  firebase from '../../firebase'
+import { storage, } from '../../firebase/index'
+import Drawer from '../Drawer/Drawer';
 
 const University = firebase.firestore().collection("fau")
 
@@ -73,7 +72,7 @@ class AddResearchPost extends Component {
         // Create a reference to the file we want to download
         let storeRef = firebase.storage().ref().child(`images/${image.name}`);
         storeRef.getDownloadURL().then(function (output) {
-
+        
             firebase.firestore().collection("fau").doc("fauInfo").collection(researchCategory).doc(position).set({
                 position: position,
                 category: researchCategory,
@@ -132,51 +131,48 @@ class AddResearchPost extends Component {
     render() {
         return (
             
-                <div className="mainView">
-                <Drawer />
-                    <form onSubmit={this.OnSubmit}>
-                        <h4>Add Research Opportunity</h4>
-                        <div>
-                            <label>Research Position Name</label>
-                            <input type="text" value={this.position} onChange={(x) =>
-                                this.setState({ position: x.currentTarget.value })
-                            } />
-                        </div>
-                        <div>
-                            <label>Category</label>
-                            <select id="researchCategory">
-                                <option value="Computer Science">Computer Science</option>
-                                <option value="Biology">Biology</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label>Research Description</label>
-                            <input type="text" value={this.description} onChange={(x) =>
-                                this.setState({ description: x.currentTarget.value })
-                            } />
-                        </div>
-                        <div>
-                            <label>Your Name</label>
-                            <input type="text" value={this.profName} onChange={(x) =>
-                                this.setState({ profName: x.currentTarget.value })
-                            } />
-                        </div>
-                        <div >
-                            <progress value={this.state.progress} max="100" />
-                            <input type="file" onChange={this.handleChange.bind(this)} />
-                            <br />
-                            <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
-                        </div>
-                        <button>Add Research Post</button>
-                    </form>
-                </div>
             
-
-
-
+            <form onSubmit={this.OnSubmit}>
+                <Drawer/>
+                <h4>Add time entry form</h4>
+                <div style={{marginLeft:'300px'}}>
+                    <label>Research Position Name</label>
+                    <input type="text" value={this.position} onChange={(x) =>
+                        this.setState({ position: x.currentTarget.value })
+                    } />
+                </div>
+                <div style={{marginLeft:'300px'}}>
+                    <label>Category</label>
+                    <select id="researchCategory">
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Biology">Biology</option>
+                    </select>
+                </div>
+                <div style={{marginLeft:'300px'}}>
+                    <label>Research Description</label>
+                    <input type="text" value={this.description} onChange={(x) =>
+                        this.setState({ description: x.currentTarget.value })
+                    } />
+                </div>
+                <div style={{marginLeft:'300px'}}>
+                    <label>Your Name</label>
+                    <input type="text" value={this.profName} onChange={(x) =>
+                        this.setState({ profName: x.currentTarget.value })
+                    } />
+                </div>
+                <div style={{marginLeft:'300px'}}>
+                    <progress value={this.state.progress} max="100" />
+                    <input type="file" onChange={this.handleChange.bind(this)} />
+                    <br />
+                    <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
+                </div>
+                <button style={{marginLeft:'300px'}}>Add Research Post</button>
+            </form>
         )
     }
 
 }
 
 export { University, AddResearchPost as default } 
+
+
