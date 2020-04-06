@@ -68,8 +68,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 ### Dependencies used
-firebase
-styled-components
-react-router-dom
-react-router
-react-dom
+firebase<br />
+styled-components<br />
+react-router-dom<br />
+react-router<br />
+react-dom<br />

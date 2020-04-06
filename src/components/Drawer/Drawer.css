@@ -1,5 +1,22 @@
 .mainDrawer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color:#28155D;
-    width:30%;
+    width:40%;
     height:100vh;
+    margin: -10px 0px -10px -10px;
+}
+
+.mainDrawer ul li{
+    padding: 10px 10px 10px 10px;
+    
+}
+
+.mainDrawer ul li{
+    list-style: none;
+}
+
+.selected{
+    color:"red"
 }

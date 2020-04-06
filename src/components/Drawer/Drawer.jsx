@@ -1,18 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import "./Drawer.css";
 
-class List extends React.Component {
+
+class Drawer extends React.Component {
     render() {
         return (
             <div className="mainDrawer">
-                <p>Please choose a repository from the list below.</p>
                 <ul>
-                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/" style={{textDecoration:"none", color:"white"}} activeClassName="selected">Home</Link></li>
+                    <li><Link to="researchOpportunity" style={{textDecoration:"none", color:"white"}} activeClassName="selected">Add research Opportunity</Link></li>
                 </ul>
             </div>
         );
     }
 }
 
-export default List;
+export default Drawer;
 

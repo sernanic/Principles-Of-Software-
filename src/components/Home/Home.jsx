@@ -1,17 +1,16 @@
 import React from 'react'
 import HorizontalScroll from '../HorizontalScroll'
-import AddResearchPost from '../AddResearchPost'
+import AddResearchPost from '../AddOpportunity/AddResearchPost'
+import Drawer from "../Drawer/Drawer"
 import './Home.css'
 
 const Home = () => {
     return (
         <div className="mainView">
-            
+            <Drawer/>
             <HorizontalScroll />
             <br />
             
-            <AddResearchPost />
-
         </div>
     )
 }

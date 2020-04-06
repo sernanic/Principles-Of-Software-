@@ -51,6 +51,8 @@ display: flex;
 flex-wrap: nowrap;
 overflow-x: auto;
 padding:20px 20px 20px 20px;
+height:300px
+
 `;
 
 const HorizontalLink = styled.a`
