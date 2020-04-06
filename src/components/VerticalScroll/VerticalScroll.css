@@ -1,0 +1,16 @@
+.VerticallView{
+
+display: flex;
+flex-wrap: nowrap;
+overflow-y: scroll;
+flex-direction: column;
+height:300px;
+width: 550px;
+padding:0px 20px 20px 20px;
+-ms-overflow-style: none;
+}
+
+ /* Hide scrollbar for Chrome, Safari and Opera */
+ .VerticallView::-webkit-scrollbar {
+    display: none;
+  }

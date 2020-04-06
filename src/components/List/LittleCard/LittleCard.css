@@ -1,0 +1,34 @@
+.LittleCard{
+    width: 100%;
+    height: 150px;
+    background-color: white;
+    justify-content:space-around;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+}
+
+.CategoryAndName{
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+}
+.LittleCardImg{
+    width: 50px;
+    height:50px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.25);
+    margin-left: 20px;
+    align-self: start;
+    
+}
+.LittleCardImg img{
+    width: 50px;
+    height:50px;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0;
+    top: 1;
+    position: relative;
+}

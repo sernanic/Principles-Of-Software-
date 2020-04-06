@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import firebase from '../../firebase'
 import styled from 'styled-components'
 import Card from '../cards/card'
-import './HorizontalScroll.css'
-import PostList from '../List/PostList'
+import './VerticalScroll.css'
+import LittleCardInfo from '../List/LittleCard/LittleCardInfo'
 
 const SORT_OPTIONS = {
     "POST_ASC": { column: "datePosted", direction: "asc" },
@@ -35,15 +35,14 @@ const HorizontalScroll = () => {
     return (
 
         
-            <div className="HorizontalView">
-
+            <div className="VerticallView">
                 {posts.map((post) =>
-                    <Card key={post.id}
-                        position={post.position}
-                        category={post.category}
-                        image={post.imageUrl} />
+                    <LittleCardInfo
+                    imageUrl={post.imageUrl}
+                    opportunityName={post.position}
+                    categoryName={post.category}
+                    datePosted={post.datePosted} /> 
                 )}
-
             </div>
         
  

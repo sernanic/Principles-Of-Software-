@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import firebase from '../firebase'
+import firebase from '../../firebase'
+import LittleCardInfo from './LittleCard/LittleCardInfo'
+import './PostList.css'
 
 const SORT_OPTIONS = {
     "POST_ASC": { column: "datePosted", direction: "asc" },
@@ -31,7 +33,7 @@ const PostList = () => {
     const [sortBy, setSortBy] = useState("POST_ASC")
     const posts = UserPost(sortBy)
     return (
-        <div>
+        <div classContainer>
             <h2>Post List</h2>
             <div>
                 <label>Sort by</label>
@@ -40,24 +42,22 @@ const PostList = () => {
                     <option value="POST_DESC">Oldest Posts</option>
                 </select>
             </div>
-            <ol>
-                {posts.map((post) =>
+            <div className="verticalScroll">
+                <ol>
+                    {posts.map((post) =>
 
-                    <li key={post.id}>
-                        <div className="post-entry">
-                            {post.position}
-                            <div>
-                                <img src={post.imageUrl} height="300" width="400"/> 
-                                <script>
-                                    console.log(post.imageUrl);    
-                                </script>
-                            </div>
+                        <li key={post.id}>
+                            <LittleCardInfo
+                                imageUrl={post.imageUrl}
+                                opportunityName={post.position}
+                                categoryName={post.category}
+                                datePosted={post.datePosted} />
 
-                        </div>
+                        </li>
+                    )}
+                </ol>
+            </div>
 
-                    </li>
-                )}
-            </ol>
         </div>
     )
 }

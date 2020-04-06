@@ -1,7 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 body{
-    background-color: white;
+    background-color: #F9FAFE;
+    font-family: 'Roboto', sans-serif;
   }
 .mainView{
     display: flex;
     flex-direction: row;
+    
+    
 }
+
+h2{
+    margin-left: 40px;
+    padding-bottom: 0px;
+}
+.break {
+    flex-basis: 100%;
+    height: 0;
+  }
+  
