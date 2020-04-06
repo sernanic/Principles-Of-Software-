@@ -1,19 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+.InfoContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin-left: 300px;
+    
+}
+
 body{
-    background-color: #F9FAFE;
+    background-color: #F5F5F5;
     font-family: 'Roboto', sans-serif;
   }
+
 .mainView{
     display: flex;
     flex-direction: row;
-    
-    
+    width: 100vw;
+    height: 100vw;
+    overflow-x: hidden;
+
 }
 
 h2{
     margin-left: 40px;
     padding-bottom: 0px;
 }
+
 .break {
     flex-basis: 100%;
     height: 0;

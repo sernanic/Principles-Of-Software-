@@ -4,7 +4,6 @@
         display: flex;
         flex-wrap: nowrap;
         overflow-y: scroll;
-        height:50px;
         -ms-overflow-style: none;
 }
 ol{

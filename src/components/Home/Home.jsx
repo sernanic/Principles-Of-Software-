@@ -8,14 +8,16 @@ import './Home.css'
 
 const Home = () => {
     return (
-        <div className="mainView" style={{overflowY:'hidden',overflowX:'hidden'}}>
+        <div className="mainView" style={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+            <div style={{width:'300px',height:'100vh'}}>
             <Drawer />
-            <div style={{flex:1,flexDirection:"row",}}>
-            <h1 style={{paddingLeft:'40px'}}>hello</h1>
-                <VerticalScroll/>
+            </div>
+            <div className="InfoContainer">
+                <h1 style={{ paddingLeft: '40px' }}>hello</h1>
+                <VerticalScroll />
                 <HorizontalScroll />
             </div>
-            
+
         </div>
     )
 }
