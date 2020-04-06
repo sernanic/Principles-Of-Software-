@@ -2,10 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color:#28155D;
+    background-image: url("../../images/whiteBackGround.jpg");
     width:40%;
     height:100vh;
     margin: -10px 0px -10px -10px;
+    
+    
 }
 
 .mainDrawer ul li{

@@ -1,5 +1,5 @@
 import React from 'react'
-import HorizontalScroll from '../HorizontalScroll'
+import HorizontalScroll from '../horizontalScroller/HorizontalScroll'
 import AddResearchPost from '../AddOpportunity/AddResearchPost'
 import Drawer from "../Drawer/Drawer"
 import './Home.css'
@@ -10,7 +10,6 @@ const Home = () => {
             <Drawer/>
             <HorizontalScroll />
             <br />
-            
         </div>
     )
 }

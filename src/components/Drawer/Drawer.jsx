@@ -7,10 +7,13 @@ class Drawer extends React.Component {
     render() {
         return (
             <div className="mainDrawer">
-                <ul>
-                    <li><Link to="/" style={{textDecoration:"none", color:"white"}} activeClassName="selected">Home</Link></li>
-                    <li><Link to="researchOpportunity" style={{textDecoration:"none", color:"white"}} activeClassName="selected">Add research Opportunity</Link></li>
-                </ul>
+                <div class="bg-image"></div>
+                <div class="bg-text">
+                    <ul>
+                        <li><Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600" }} activeClassName="selected">Home</Link></li>
+                        <li><Link to="researchOpportunity" style={{ textDecoration: "none", color: "black", fontWeight: "600" }} activeClassName="selected">Add research Opportunity</Link></li>
+                    </ul>
+                </div>
             </div>
         );
     }
