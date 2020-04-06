@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 class List extends React.Component {
     render() {
         return (
-            <div>
+            <div className="mainDrawer">
                 <p>Please choose a repository from the list below.</p>
                 <ul>
-                    <li><Link to="/">React</Link></li>
+                    <li><Link to="/">Home</Link></li>
                 </ul>
             </div>
         );
@@ -15,3 +15,4 @@ class List extends React.Component {
 }
 
 export default List;
+

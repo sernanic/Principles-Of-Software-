@@ -49,8 +49,7 @@ const PostList = () => {
                             <div>
                                 <img src={post.imageUrl} height="300" width="400"/> 
                                 <script>
-                                    console.log(post.imageUrl);
-                                    
+                                    console.log(post.imageUrl);    
                                 </script>
                             </div>
 
