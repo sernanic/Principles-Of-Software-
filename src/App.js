@@ -22,23 +22,18 @@
 // }
 // export default Application;
 
-import React from 'react'
-import { auth } from './firebase/index'
-import HorizontalScroll from './components/HorizontalScroll'
-import AddResearchPost from './components/AddResearchPost'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from './components/Home'
 
 
-const Home = () => {
+const App = () => {
     return (
         <div>
-            <button onClick={() => auth.signOut()}>Sign Out</button>
-            <HorizontalScroll />
-            <br />
-            <HorizontalScroll />
-            <AddResearchPost />
-
+            <Home/>
         </div>
     )
 }
 
-export default Home;
+export default App;
