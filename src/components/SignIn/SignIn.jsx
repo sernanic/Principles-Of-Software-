@@ -1,10 +1,8 @@
 import React, { useState, useEffect, Component } from 'react'
-import firebase from '../firebase/index'
-import { auth, storage } from '../firebase/index'
+import firebase from '../../firebase/index'
+import { auth, storage } from '../../firebase/index'
 import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
-
-
 
 
 

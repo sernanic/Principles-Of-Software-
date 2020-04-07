@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import App from "./App";
 import AddResearchPost from './components/AddOpportunity/AddResearchPost'
-import SignUp  from './components/SignUp'
-import SignIn from './components/SignIn'
+import SignUp  from './components/SignUp/SignUp'
+import SignIn from './components/SignIn/SignIn'
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
