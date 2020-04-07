@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './card.css'
 import Modal from 'react-modal';
-import Wave from '../Wave'
 
 Modal.setAppElement('#root')
 function Card(props) {

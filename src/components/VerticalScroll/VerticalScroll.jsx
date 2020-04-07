@@ -33,8 +33,6 @@ const HorizontalScroll = () => {
     const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)
     return (
-
-        
             <div className="VerticallView">
                 {posts.map((post) =>
                     <LittleCardInfo

@@ -12,6 +12,8 @@ class Drawer extends React.Component {
                     <ul>
                         <li><Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }}>Home</Link></li>
                         <li><Link to="researchOpportunity" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }} >Add research Opportunity</Link></li>
+                        <li><Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }}>Sign Up</Link></li>
+                        <li><Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }}>Sign In</Link></li>
                     </ul>
                 </div>
             </div>

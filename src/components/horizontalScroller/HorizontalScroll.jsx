@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import firebase from '../../firebase'
+import firebase from '../../firebase/index'
 import styled from 'styled-components'
 import Card from '../cards/card'
 import './HorizontalScroll.css'
@@ -46,6 +46,7 @@ const HorizontalScroll = () => {
                         description={post.description}
                         proffessorName={post.proffessorName}/>
                 )}
+                <h1>hello</h1>
 
             </div>
         
