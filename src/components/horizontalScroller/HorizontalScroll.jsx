@@ -29,6 +29,7 @@ function UserPost(sortBy = "POST_ASC") {
     return posts
 }
 
+
 const HorizontalScroll = () => {
     const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)
@@ -41,7 +42,9 @@ const HorizontalScroll = () => {
                     <Card key={post.id}
                         position={post.position}
                         category={post.category}
-                        image={post.imageUrl} />
+                        image={post.imageUrl} 
+                        description={post.description}
+                        proffessorName={post.proffessorName}/>
                 )}
 
             </div>

@@ -1,8 +1,7 @@
 import React, { useState, Component } from 'react'
-import  firebase from '../../firebase'
-import { storage, } from '../../firebase/index'
-import Drawer from '../Drawer/Drawer';
-
+import firebase from '../../firebase'
+import { storage } from '../../firebase/index'
+import Drawer from '../Drawer/Drawer'
 const University = firebase.firestore().collection("fau")
 
 class AddResearchPost extends Component {
@@ -131,7 +130,6 @@ class AddResearchPost extends Component {
     render() {
         return (
             
-            
             <form onSubmit={this.OnSubmit}>
                 <Drawer/>
                 <h4>Add time entry form</h4>
@@ -160,7 +158,7 @@ class AddResearchPost extends Component {
                         this.setState({ profName: x.currentTarget.value })
                     } />
                 </div>
-                <div style={{marginLeft:'300px'}}>
+                <div  style={{marginLeft:'300px'}}>
                     <progress value={this.state.progress} max="100" />
                     <input type="file" onChange={this.handleChange.bind(this)} />
                     <br />
@@ -174,5 +172,3 @@ class AddResearchPost extends Component {
 }
 
 export { University, AddResearchPost as default } 
-
-

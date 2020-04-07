@@ -9,8 +9,16 @@
     
 }
 
+.mainSubject{
+    margin-left: 40px;
+    padding-bottom: 0px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    color: #f1404b;
+}
+
 body{
-    background-color: #F5F5F5;
+    background-color: #f4f5f9;
     font-family: 'Roboto', sans-serif;
   }
 

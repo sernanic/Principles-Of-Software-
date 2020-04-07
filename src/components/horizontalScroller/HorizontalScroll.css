@@ -4,7 +4,7 @@ display: flex;
 flex-wrap: nowrap;
 overflow-x: auto;
 overflow-y: hidden;
-padding:80px 20px 20px 20px;
+padding:0px 20px 20px 20px;
 height:250px;
 width: 1050px;
 -ms-overflow-style: none;

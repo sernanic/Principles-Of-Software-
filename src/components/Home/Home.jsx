@@ -6,15 +6,16 @@ import Drawer from "../Drawer/Drawer"
 import PostList from '../List/PostList'
 import './Home.css'
 
-const Home = () => {
+const Home = props => {
     return (
         <div className="mainView" style={{ overflowY: 'hidden', overflowX: 'hidden' }}>
             <div style={{width:'300px',height:'100vh'}}>
             <Drawer />
             </div>
             <div className="InfoContainer">
-                <h1 style={{ paddingLeft: '40px' }}>hello</h1>
+                <h1 style={{ paddingLeft: '25px',color:'#f1404b',marginBottom: '4px' }}>Most Recent Opportunites</h1>
                 <VerticalScroll />
+                <h2 className="mainSubject">{props.mainSubject}</h2>
                 <HorizontalScroll />
             </div>
 
