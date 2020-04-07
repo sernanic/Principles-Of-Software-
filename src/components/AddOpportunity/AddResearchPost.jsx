@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react'
 import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
-import Drawer from '../Drawer/Drawer'
+import SideNav from '../SideNav/SideNav'
 const University = firebase.firestore().collection("fau")
 
 class AddResearchPost extends Component {
@@ -91,15 +91,17 @@ class AddResearchPost extends Component {
 
 
             firebase.firestore().collection("fau").doc("fauInfo").collection("allResearchPost").doc(position).set({
+
+                // assign each doc field a value
                 position: position,
                 category: researchCategory,
                 description: description,
                 professorName: profName,
                 datePosted: date,
                 imageUrl: output
+
             }).then(() => {
-                // this.setState({ position: "" })
-                // this.setState({ description: "" })
+                
                 researchCategory = ''
                 console.log("Document successfully written!");
 
@@ -131,40 +133,40 @@ class AddResearchPost extends Component {
         return (
             
             <form onSubmit={this.OnSubmit}>
-                <Drawer/>
+                <SideNav/>
                 <h4>Add time entry form</h4>
-                <div style={{marginLeft:'300px'}}>
+                <div className='marginOnsideNav'>
                     <label>Research Position Name</label>
                     <input type="text" value={this.position} onChange={(x) =>
                         this.setState({ position: x.currentTarget.value })
                     } />
                 </div>
-                <div style={{marginLeft:'300px'}}>
+                <div className='marginOnsideNav'>
                     <label>Category</label>
                     <select id="researchCategory">
                         <option value="Computer Science">Computer Science</option>
                         <option value="Biology">Biology</option>
                     </select>
                 </div>
-                <div style={{marginLeft:'300px'}}>
+                <div className='marginOnsideNav'>
                     <label>Research Description</label>
                     <input type="text" value={this.description} onChange={(x) =>
                         this.setState({ description: x.currentTarget.value })
                     } />
                 </div>
-                <div style={{marginLeft:'300px'}}>
+                <div className='marginOnsideNav'>
                     <label>Your Name</label>
                     <input type="text" value={this.profName} onChange={(x) =>
                         this.setState({ profName: x.currentTarget.value })
                     } />
                 </div>
-                <div  style={{marginLeft:'300px'}}>
+                <div  className='marginOnsideNav'>
                     <progress value={this.state.progress} max="100" />
                     <input type="file" onChange={this.handleChange.bind(this)} />
                     <br />
                     <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
                 </div>
-                <button style={{marginLeft:'300px'}}>Add Research Post</button>
+                <button className='marginOnsideNav'>Add Research Post</button>
             </form>
         )
     }

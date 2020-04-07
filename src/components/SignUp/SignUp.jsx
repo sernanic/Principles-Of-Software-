@@ -5,8 +5,8 @@ import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 
 
-// Adds a document with the teachers collection
-// with more abdou the teacher. The name of the dorument is the 
+// Adds a document to the teachers' collection
+// with more inf about the teacher. The name of the dorument is the 
 // key value genereated for uid
 function createUserDoc(user) {
     firebase.firestore().collection(document.getElementById("university").value).doc("users")
@@ -90,7 +90,7 @@ const SignUp = props => {
                     </select>
                 </div>
 
-                <button >Add Research Post</button>
+                <button >Sign Up</button>
             </form>
             <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>Home</Link>
         </React.Fragment>

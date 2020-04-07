@@ -23,7 +23,6 @@ function UserPost(sortBy = "POST_DESC") {
                 }))
                 setPosts(newPost)
             })
-
         return () => unsubscribe()
     }, [sortBy])
     return posts
@@ -42,9 +41,6 @@ const HorizontalScroll = () => {
                     datePosted={post.datePosted} /> 
                 )}
             </div>
-        
- 
-
     )
 }
 

@@ -18,7 +18,6 @@ const App = () => {
                     <Home mainSubject="Biology" currentUser = {user.uid} />
                 </div>
             )
-            
         } else {
             return (
                 <div>

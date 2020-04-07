@@ -2,23 +2,17 @@ import React from 'react'
 import HorizontalScroll from '../horizontalScroller/HorizontalScroll'
 import VerticalScroll from '../VerticalScroll/VerticalScroll'
 import AddResearchPost from '../AddOpportunity/AddResearchPost'
-import Drawer from "../Drawer/Drawer"
+import SideNav from "../SideNav/SideNav"
 import auth from '../../firebase/index'
 import './Home.css'
 
 const Home = props => {
-    if(auth.currentUser){
-        console.log('hello');
-        
-    }else{
-        console.log('nop');
-        
-    }
+
     return (
 
         <div className="mainView" style={{ overflowY: 'hidden', overflowX: 'hidden' }}>
             <div style={{width:'300px',height:'100vh'}}>
-            <Drawer />
+            <SideNav />
             </div>
             <div className="InfoContainer">
                 <h1 style={{ paddingLeft: '25px',color:'#f1404b',marginBottom: '4px' }}>Most Recent Opportunites</h1>

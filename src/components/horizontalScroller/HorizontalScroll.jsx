@@ -46,7 +46,6 @@ const HorizontalScroll = () => {
                         description={post.description}
                         proffessorName={post.proffessorName}/>
                 )}
-                <h1>hello</h1>
 
             </div>
         

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "./Drawer.css";
+import "./SideNav.css";
 
 
-class Drawer extends React.Component {
+class SideNav extends React.Component {
     render() {
         return (
             <div className="mainDrawer">
@@ -21,5 +21,5 @@ class Drawer extends React.Component {
     }
 }
 
-export default Drawer;
+export default SideNav;
 
