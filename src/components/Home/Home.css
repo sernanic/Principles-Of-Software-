@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-
+body{
+    overflow-x: hidden;
+}
 .InfoContainer{
     display: flex;
     flex-direction: column;
