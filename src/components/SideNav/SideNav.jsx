@@ -10,6 +10,7 @@ class SideNav extends React.Component {
                 {/* <div class="bg-image"></div> */}
                 <div className="bg-text">
                     <ul>
+                        <li>hello</li>
                         <li><Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }}>Home</Link></li>
                         <li><Link to="researchOpportunity" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }} >Add research Opportunity</Link></li>
                         <li><Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600",zIndex:'100' }}>Sign Up</Link></li>
