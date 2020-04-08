@@ -4,7 +4,7 @@ import { auth, storage } from '../../firebase/index'
 import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import Home from '../Home/Home'
-
+import {withRouter} from 'react-router-dom';
 
 function createUser(event) {
     event.preventDefault();
@@ -22,10 +22,12 @@ function createUser(event) {
     });
 }
 
+
+
 const SignIn = props => {
     return (
         <React.Fragment>
-            <form onSubmit={createUser}>
+            <form onSubmit={createUser} autocomplete="on">
                 <label>
                     Email:
                     <textarea id="email" />
@@ -41,9 +43,12 @@ const SignIn = props => {
                         <option value="fsu">Florida State University</option>
                     </select>
                 </div>
-                <button >Sign In</button>
+                <button onClick={() => this.nextPath('/the/path')}>Sign In</button>
+                <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+                    <button >Sign Up</button>
+                </Link>
+                <Link to="/"><button>Back Home</button></Link>
             </form>
-            <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>Home</Link>
             
         </React.Fragment>
     );

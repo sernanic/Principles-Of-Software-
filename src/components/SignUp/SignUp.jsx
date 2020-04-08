@@ -20,11 +20,11 @@ function createUserDoc(user) {
         }).then(() => {
             user.updateProfile({
                 displayName: document.getElementById("university").value,
-                photoURL:document.getElementById("university").value,
+                photoURL: document.getElementById("university").value,
             }).then(function () {
                 console.log("further info has been added");
                 console.log(user.displayName);
-        
+
             }).catch(function (error) {
                 // An error happened.
                 console.log(error.message);
@@ -38,13 +38,11 @@ function createUserDoc(user) {
 
 
 // creates a user
-function createUser(event) 
-{
+function createUser(event) {
     event.preventDefault();
     var email = document.getElementById('email').value;
     var password = document.getElementById('password').value;
-    auth.createUserWithEmailAndPassword(email, password).then(() => 
-    {
+    auth.createUserWithEmailAndPassword(email, password).then(() => {
         var user = auth.currentUser;
         // we are not allowed to create additional
         // fields for authentication
@@ -56,14 +54,14 @@ function createUser(event)
 
             // student or teacher
             photoURL: document.getElementById('studentTeacher').value,
-          }).then(function() {
+        }).then(function () {
             console.log(user.displayName);
-            
-          }).catch(function(error) {
+
+        }).catch(function (error) {
             console.log('could not add username');
-            
-          });
-          
+
+        });
+
         createUserDoc(user)
 
         // Empty the input once the user has signed up
@@ -71,9 +69,8 @@ function createUser(event)
         document.getElementById('password').value = ''
         document.getElementById('username').value = ''
         console.log(user.displayName.value);
-        
-    }).catch(function (error) 
-    {
+
+    }).catch(function (error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -84,7 +81,7 @@ function createUser(event)
 const SignUp = props => {
     return (
         <React.Fragment>
-            <form onSubmit={createUser}>
+            <form onSubmit={createUser} autocomplete="on" >
                 <label>
                     Email:
                     <textarea id="email" />
@@ -111,10 +108,14 @@ const SignUp = props => {
                         <option value="students">Student</option>
                     </select>
                 </div>
+                <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+                    <button >Sign Up</button>
+                </Link>
+                <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}><button >Sign In</button></Link>
 
-                <button >Sign Up</button>
+
             </form>
-            <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>Home</Link>
+
         </React.Fragment>
     );
 }
