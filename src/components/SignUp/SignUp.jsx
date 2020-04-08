@@ -108,9 +108,8 @@ const SignUp = props => {
                         <option value="students">Student</option>
                     </select>
                 </div>
-                <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
-                    <button >Sign Up</button>
-                </Link>
+                
+                <button >Sign Up</button>
                 <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}><button >Sign In</button></Link>
 
 

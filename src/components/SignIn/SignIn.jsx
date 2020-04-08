@@ -43,7 +43,7 @@ const SignIn = props => {
                         <option value="fsu">Florida State University</option>
                     </select>
                 </div>
-                <button onClick={() => this.nextPath('/the/path')}>Sign In</button>
+                <button >Sign In</button>
                 <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                     <button >Sign Up</button>
                 </Link>
