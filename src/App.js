@@ -8,14 +8,16 @@ import {auth} from './firebase/index'
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app' 
 import 'firebase/firebase-auth'
-
+import UserProvider from './UserProvider'
 
 const App = () => {
         var user = auth.currentUser
         if (user) {
             return(
                 <div>
-                    <Home mainSubject="Biology" currentUser = {user.uid} />
+                    <UserProvider value = {auth.currentUser}>
+                        <Home mainSubject="Biology"/>
+                    </UserProvider>
                 </div>
             )
         } else {

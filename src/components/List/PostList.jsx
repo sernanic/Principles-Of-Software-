@@ -28,7 +28,6 @@ function UserPost(sortBy = "POST_DESC") {
 }
 
 
-
 const PostList = () => {
     const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)

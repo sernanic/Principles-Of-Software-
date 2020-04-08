@@ -12,11 +12,23 @@ function createUserDoc(user) {
     firebase.firestore().collection(document.getElementById("university").value).doc("users")
         .collection('teachers').doc(user.uid).set({
 
+            // assign each doc field a value
             displayName: document.getElementById('username').value,
             University: document.getElementById("university").value,
             email: document.getElementById("email").value
 
         }).then(() => {
+            user.updateProfile({
+                displayName: document.getElementById("university").value,
+                photoURL:document.getElementById("university").value,
+            }).then(function () {
+                console.log("further info has been added");
+                console.log(user.displayName);
+        
+            }).catch(function (error) {
+                // An error happened.
+                console.log(error.message);
+            });
             console.log(" user document successfully written!");
 
         }).catch(function (error) {
@@ -24,20 +36,6 @@ function createUserDoc(user) {
         });
 }
 
-// Adds username to the user
-function AddUserName(user) {
-    user.updateProfile({
-        displayName: document.getElementById('username').value,
-    }).then(function () {
-        console.log("further info has been added");
-        console.log(user.displayName);
-
-    }).catch(function (error) {
-        // An error happened.
-        console.log(error.message);
-    });
-
-}
 
 // creates a user
 function createUser(event) 
@@ -48,15 +46,32 @@ function createUser(event)
     auth.createUserWithEmailAndPassword(email, password).then(() => 
     {
         var user = auth.currentUser;
-        AddUserName(user)
+        // we are not allowed to create additional
+        // fields for authentication
+        //so we must use fields already
+        //provided by firebase
+        user.updateProfile({
+            // university name
+            displayName: document.getElementById('university').value,
+
+            // student or teacher
+            photoURL: document.getElementById('studentTeacher').value,
+          }).then(function() {
+            console.log(user.displayName);
+            
+          }).catch(function(error) {
+            console.log('could not add username');
+            
+          });
+          
         createUserDoc(user)
 
         // Empty the input once the user has signed up
         document.getElementById('email').value = ''
         document.getElementById('password').value = ''
-        document.getElementById('email').value = ''
-        document.getElementById('usernam').value = ''
-
+        document.getElementById('username').value = ''
+        console.log(user.displayName.value);
+        
     }).catch(function (error) 
     {
         // Handle Errors here.
@@ -87,6 +102,13 @@ const SignUp = props => {
                     <select id="university">
                         <option value="fau">FAU</option>
                         <option value="fsu">Florida State University</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Are you a Student or Teacher</label>
+                    <select id="studentTeacher">
+                        <option value="teachers">Teachers</option>
+                        <option value="students">Student</option>
                     </select>
                 </div>
 

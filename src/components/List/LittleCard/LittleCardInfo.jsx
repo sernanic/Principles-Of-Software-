@@ -3,7 +3,6 @@ import './LittleCard.css'
 import LittleCardImage from './LittleCardImg'
 const LittleCardInfo = props => (
     
-        
             <div className="LittleCard">
                 <LittleCardImage image={props.imageUrl} />
                 <p style={{ width: '130px', textAlign: 'center',textTransform:'capitalize' }}>{props.opportunityName}</p>
@@ -11,9 +10,6 @@ const LittleCardInfo = props => (
                 <p style={{paddingRight:'10px',color:"#BDBDBD"}}>{props.datePosted}</p>
             </div>
            
-       
-
-    
 )
 
 

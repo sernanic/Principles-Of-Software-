@@ -3,7 +3,7 @@ import firebase from '../../firebase/index'
 import { auth, storage } from '../../firebase/index'
 import { Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
-
+import Home from '../Home/Home'
 
 
 function createUser(event) {
@@ -34,9 +34,17 @@ const SignIn = props => {
                     Password:
                     <textarea id="password" />
                 </label>
+                <div>
+                    <label>University</label>
+                    <select id="university">
+                        <option value="fau">FAU</option>
+                        <option value="fsu">Florida State University</option>
+                    </select>
+                </div>
                 <button >Sign In</button>
             </form>
             <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>Home</Link>
+            
         </React.Fragment>
     );
 }

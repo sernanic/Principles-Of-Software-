@@ -2,6 +2,7 @@ import React, { useState, Component } from 'react'
 import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
 import SideNav from '../SideNav/SideNav'
+import './AddOpportunity.css'
 const University = firebase.firestore().collection("fau")
 
 class AddResearchPost extends Component {
@@ -132,8 +133,10 @@ class AddResearchPost extends Component {
     render() {
         return (
             
-            <form onSubmit={this.OnSubmit}>
+            <React.Fragment>
                 <SideNav/>
+                <form onSubmit={this.OnSubmit}>
+
                 <h4>Add time entry form</h4>
                 <div className='marginOnsideNav'>
                     <label>Research Position Name</label>
@@ -168,6 +171,8 @@ class AddResearchPost extends Component {
                 </div>
                 <button className='marginOnsideNav'>Add Research Post</button>
             </form>
+            </React.Fragment>
+            
         )
     }
 

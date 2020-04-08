@@ -23,7 +23,6 @@ function UserPost(sortBy = "POST_ASC") {
                 }))
                 setPosts(newPost)
             })
-
         return () => unsubscribe()
     }, [sortBy])
     return posts
@@ -48,9 +47,6 @@ const HorizontalScroll = () => {
                 )}
 
             </div>
-        
- 
-
     )
 }
 
