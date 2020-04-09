@@ -36,3 +36,18 @@
     position: relative;
     
 }
+
+@media(max-width:1050px){
+    .LittleCard{
+        padding-right: 5%;
+        
+    }
+}
+
+@media(max-width:750px){
+    .LittleCard{
+        padding-right: 5%;
+        width: 60%;
+        
+    }
+}

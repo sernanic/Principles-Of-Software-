@@ -16,7 +16,7 @@ const App = () => {
         return (
             <div>
                 <UserProvider value={auth.currentUser}>
-                    <Home mainSubject="Biology" />
+                    <Home />
                 </UserProvider>
             </div>
         )
@@ -24,6 +24,9 @@ const App = () => {
         return (
             <div>
                 <React.Fragment>
+                    <div className="container">
+
+                    </div>
                     <h1>hello, you are not signed in</h1>
                     <div className="authButtons">
                         <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}><button >Sign In</button></Link>

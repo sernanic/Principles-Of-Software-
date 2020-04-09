@@ -1,20 +1,30 @@
 .VerticallView{
 
-display: flex;
-flex-wrap: nowrap;
-overflow-y: scroll;
-flex-direction: column;
-height:320px;
-width: 550px;
-padding:0px 20px 20px 20px;
--ms-overflow-style: none;
-background-color: rgba(240, 240, 240, 0.596);
-border-radius: 14px;
-
-
-}
-
- /* Hide scrollbar for Chrome, Safari and Opera */
- .VerticallView::-webkit-scrollbar {
-    display: none;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-y: scroll;
+  flex-direction: column;
+  height:320px;
+  width: 35%;
+  padding:0px 20px 20px 20px;
+  -ms-overflow-style: none;
+  background-color: rgba(240, 240, 240, 0.596);
+  border-radius: 14px;
+  
+  
   }
+  
+   /* Hide scrollbar for Chrome, Safari and Opera */
+   .VerticallView::-webkit-scrollbar {
+      display: none;
+    }
+  
+    @media (max-width:1050px){
+      .VerticallView{
+        width: 100%;
+        padding-right: 10%;
+      }
+    }
+  
+    
+  

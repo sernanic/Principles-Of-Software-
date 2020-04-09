@@ -72,6 +72,8 @@ class SignUp extends Component {
         var displayName = document.getElementById('displayName').value
         const { image } = this.state;
         const { url } = this.state;
+        const { progress } = this.state;
+        console.log(progress);
         auth.createUserWithEmailAndPassword(email, password).then(() => {
             var userUID = auth.currentUser.uid;
             this.handleUpload()
@@ -80,11 +82,13 @@ class SignUp extends Component {
             // fields for authentication
             //so we must use fields already
             //provided by firebase
+            // this update function does not work for some reason
             auth.currentUser.updateProfile({
                 // university name
                 displayName: university,
+
                 // student or teacher
-                photoURL: "teachers",
+                photoURL: document.getElementById('favoriteSubject').value,
             }).then(function () {
                 // the code within this function adds a document to the teachers' collection
                 // with more info about the teacher. The name of the dorument is the 
@@ -93,13 +97,14 @@ class SignUp extends Component {
                 storeRef.getDownloadURL().then(function (output) 
                 {
                     firebase.firestore().collection(university).doc("users")
-                    .collection('teachers').doc(userUID).set({
+                    .collection(document.getElementById('studentTeacher').value).doc(userUID).set({
 
                         // assign each doc field a value
                         displayName: document.getElementById('displayName').value,
                         University: auth.currentUser.displayName,
                         email: auth.currentUser.email,
-                        profileImageUrl: output
+                        profileImageUrl: output,
+                        favoriteSubject:document.getElementById('favoriteSubject').value,
 
                     }).then(() => {
                         console.log('profileImage',
@@ -107,11 +112,13 @@ class SignUp extends Component {
                             .collection('teachers').doc(userUID).profileImage
                         );
                         
-                        auth.currentUser.updateProfile({
+                        auth.currentUser.updateProfile(
+                        {
+
                             // university name
                             displayName: university,
                             // student or teacher
-                            photoURL: studentTeacher,
+                            photoURL: document.getElementById('favoriteSubject').value,
                         }).then(function () {
                             console.log("further info has been added");
                             console.log(auth.currentUser.photoURL);
@@ -180,7 +187,7 @@ class SignUp extends Component {
                         height="150" width="150" className="profileImage"/>
                         <progress value={this.state.progress} max="100" style={{marginLeft:'30%'}}/>
                         <br />
-                        <input type="file" onChange={this.handleChange.bind(this)} style={{marginLeft:'30%'}}/>
+                        <input type="file" onChange={this.handleChange.bind(this)} style={{marginLeft:'30%'}} required/>
                     </div>
 
                     <div class="input-field">
@@ -188,17 +195,17 @@ class SignUp extends Component {
                         <label for="signup-email">Email address</label>
                     </div>
                     <div class="input-field">
-                        <input type="text" id="displayName" />
+                        <input type="text" id="displayName" required/>
                         <label for="displayName">Choose Display Name</label>
                     </div>
                     <div class="input-field">
-                        <input type="password" id="signup-password" />
+                        <input type="password" id="signup-password" required/>
                         <label for="signup-password">Choose password</label>
                     </div>
 
 
                     <div class="input-field col s12">
-                        <select className="select-css browser-default" id="university" style={{ backgroundColor: '#F4F5F9' }}>
+                        <select className="select-css browser-default" id="university" style={{ backgroundColor: '#F4F5F9' }} required>
                             <option value="" disabled selected>Choose your University</option>
                             <option value="fau">FAU</option>
                             <option value="fsu">Florida State University</option>
@@ -206,10 +213,18 @@ class SignUp extends Component {
 
                     </div>
                     <div class="input-field col s12">
-                        <select className="select-css browser-default" id="studentTeacher">
+                        <select className="select-css browser-default" id="studentTeacher" required>
                             <option value="" disabled selected>Are you a Student or Teacher</option>
                             <option value="teachers">Teachers</option>
                             <option value="students">Student</option>
+                        </select>
+
+                    </div>
+                    <div class="input-field col s12">
+                        <select className="select-css browser-default" id="favoriteSubject" required>
+                            <option value="" disabled selected>Select your Favorite Subject</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Biology">Biology</option>
                         </select>
 
                     </div>
@@ -217,6 +232,7 @@ class SignUp extends Component {
                     <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                         <button className="btn z-depth-1" style={{ margin: '10px' }}>Sign In</button>
                     </Link>
+                    <Link to="/"><button className="btn z-depth-1 buttonStyle" style={{ margin: '5px' }}>Home   </button></Link>
                 </form>
 
 
