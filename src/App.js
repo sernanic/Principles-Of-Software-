@@ -1,15 +1,14 @@
 
 
 import React from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from './components/Home/Home'
 import { auth } from './firebase/index'
 import { Link } from 'react-router-dom';
-import firebase from 'firebase/app'
 import 'firebase/firebase-auth'
 import UserProvider from './UserProvider'
 import 'materialize-css/dist/css/materialize.min.css';
+
+
 const App = () => {
     var user = auth.currentUser
     if (user) {
@@ -20,19 +19,25 @@ const App = () => {
                 </UserProvider>
             </div>
         )
-    } else {
+    } else 
+    {
         return (
             <div>
-                <React.Fragment>
-                    <div className="container">
 
-                    </div>
-                    <h1>hello, you are not signed in</h1>
+                <div className="container grey lighten-3 z-depth-1"style={{
+                    flex: 1, flexDirection: 'column', justifyContent: 'center',
+                    alignItems: 'center', borderRadius: '10px', marginTop: '5%'
+                }}>
+                    <h1 style={{fontSize:"24px"}}>Hello, you are not signed in</h1>
                     <div className="authButtons">
-                        <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}><button >Sign In</button></Link>
-                        <Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}><button >Sign Up</button></Link>
+                        <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+                            <button className="btn z-depth-1 buttonStyle" style={{ margin: '5px' }}>Sign In</button>
+                        </Link>
+                        <Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+                            <button className="btn z-depth-1 buttonStyle" style={{ margin: '5px' }}>Sign Up</button>
+                        </Link>
                     </div>
-                </React.Fragment>
+                </div>
             </div>
         )
     }

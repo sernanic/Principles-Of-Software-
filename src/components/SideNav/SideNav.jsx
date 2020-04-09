@@ -15,16 +15,31 @@ const SideNav = props => {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()
-        const docRef = firebase.firestore().collection(auth.currentUser.displayName).doc('users')
-            .collection('teachers').doc(auth.currentUser.uid)
-        docRef.get().then(function (doc) {
-            // Document was found in the cache. If no cached document exists,
-            setuserEmail(doc.data().email)
-            setUserProfileImage(doc.data().profileImageUrl)
-            setUserdisplayName(doc.data().displayName)
-        }).catch(function (error) {
-            console.log("Error getting cached document:", error);
-        });
+        try {
+            const docRefteachers = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('allUsers').doc(firebase.auth().currentUser.uid)
+            docRefteachers.get().then(function (doc) {
+                // Document was found in the cache. If no cached document exists,
+                setuserEmail(doc.data().email)
+                setUserProfileImage(doc.data().profileImageUrl)
+                setUserdisplayName(doc.data().displayName)
+            }).catch(function (error) {
+                console.log("Error getting cached document:", error);
+
+            });
+
+        }
+        catch(err){
+            const docRefStudetns = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('studetns').doc(firebase.auth().currentUser.uid)
+            docRefStudetns.get().then(function (doc) {
+                // Document was found in the cache. If no cached document exists,
+                setuserEmail(doc.data().email)
+                setUserProfileImage(doc.data().profileImageUrl)
+                setUserdisplayName(doc.data().displayName)
+            }).catch(function (error) {
+                console.log("Error getting cached document:", error);
+            });
+        }
+
 
         return [userEmail, userdisplayName, userProfileImage]
 
@@ -32,7 +47,16 @@ const SideNav = props => {
 
 
 
+    try {
+        const userInfo = GetuserInfo()
+    }
+    catch (err) {
+
+        console.log('nope');
+
+    }
     const userInfo = GetuserInfo()
+
     return (
         <UserConsumer>
             {currentUser => {
@@ -51,7 +75,16 @@ const SideNav = props => {
                                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
                                 <ul>
                                     <li><i class="fa fa-home" style={{ color: "#9FA3AF" }}></i> <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link></li>
-                                    <li><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i> <Link to="researchOpportunity" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} >Add research Opportunity</Link></li>
+                                    {() => {
+                                        if (auth.currentUser.photoURL === 'teachers') {
+                                            console.log('hello');
+
+                                        }
+                                    }}
+
+                                    <li><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
+                                        <Link to="researchOpportunity" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} >Add research Opportunity</Link>
+                                    </li>
                                     <li><i class="fa fa-address-card-o" style={{ color: "#9FA3AF" }}></i> <Link to="SignUp" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Sign Up</Link></li>
                                     <li><i class="fa fa-sign-in" aria-hidden="true" style={{ color: "#9FA3AF" }}></i> <Link to="SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Sign In</Link></li>
                                 </ul>

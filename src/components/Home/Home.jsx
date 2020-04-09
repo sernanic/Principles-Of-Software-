@@ -18,14 +18,16 @@ const Home = props => {
      // returns array of [email, displayName, profileImageUrl]
     // When using states and functions 
     //the function name must start with a capital letter
+    
     function GetuserInfo() {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()
         const [userfavoriteSubject, setUserfavoriteSubject] = useState()
         const [userUniversity, setUserUniversity] = useState()
+
         const docRef = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
-            .collection('teachers').doc(firebase.auth().currentUser.uid)
+            .collection('allUsers').doc(firebase.auth().currentUser.uid)
         docRef.get().then(function (doc) {
             // Document was found in the cache. If no cached document exists,
             setuserEmail(doc.data().email)
@@ -47,6 +49,7 @@ const Home = props => {
             {currentUser => {
                     return (
                         <div style={{flex:1,justifyContent:'space-between',overflowX: 'hidden'}}>
+                        
                         <SideNav />
                         {/* <div className="mainView" style={{ overflowY: 'hidden', overflowX: 'hidden' }}> */}
 

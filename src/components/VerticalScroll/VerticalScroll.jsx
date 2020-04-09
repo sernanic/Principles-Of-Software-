@@ -12,11 +12,12 @@ const SORT_OPTIONS = {
 
 function UserPost(sortBy = "POST_DESC") {
     const [posts, setPosts] = useState([])
-
+   
     useEffect(() => 
     {
+        
         const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("allResearchPost")
-            .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction).limit(15)
+            .orderBy('datePosted', 'desc').limit(8)
             .onSnapshot((snapshot) => 
             {
                 const newPost = snapshot.docs.map((doc) => 

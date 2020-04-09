@@ -81,15 +81,15 @@ const SearchBar = props => {
     const newSearches = UserSearchTeacher()
     return (
         
-            <div className="container">
+            <div className="searchContainer">
             <form >
             <input className="searchBar" placeholder="search" id="searchInput"></input>
-            <select className="topic" id="searchCategory">
+            {/* <select className="topic" id="searchCategory">
                 <option value="teacher" selected>Professor</option>
                 <option value="category" >Research Category</option>
                 <option value="Documents">Documents Published</option>
-            </select>
-            <button className="searchButton">Search</button>
+            </select> */}
+            <button className="searchButton btn z-depth-1 buttonStyle">Search</button>
             {/* <UserProvider value = {newSearches}>
                 <link rel="stylesheet" href=""/>
                 <li><Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>SearchResults</Link></li>

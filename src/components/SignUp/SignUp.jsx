@@ -7,6 +7,8 @@ import M from "materialize-css";
 import 'materialize-css/dist/css/materialize.min.css';
 import ReactDOM from 'react-dom';
 import './SIgnUp.css'
+
+
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -83,6 +85,8 @@ class SignUp extends Component {
             //so we must use fields already
             //provided by firebase
             // this update function does not work for some reason
+            console.log(document.getElementById('studentTeacher').value)
+            
             auth.currentUser.updateProfile({
                 // university name
                 displayName: university,
@@ -96,8 +100,10 @@ class SignUp extends Component {
                 let storeRef = firebase.storage().ref().child(`userImages/${image.name}`);
                 storeRef.getDownloadURL().then(function (output) 
                 {
+                    console.log('this is it',document.getElementById('studentTeacher').value);
+                    
                     firebase.firestore().collection(university).doc("users")
-                    .collection(document.getElementById('studentTeacher').value).doc(userUID).set({
+                    .collection('allUsers').doc(userUID).set({
 
                         // assign each doc field a value
                         displayName: document.getElementById('displayName').value,
@@ -105,8 +111,11 @@ class SignUp extends Component {
                         email: auth.currentUser.email,
                         profileImageUrl: output,
                         favoriteSubject:document.getElementById('favoriteSubject').value,
+                        userStaus:document.getElementById('studentTeacher').value
 
                     }).then(() => {
+                        console.log();
+                        
                         console.log('profileImage',
                             firebase.firestore().collection(university).doc("users")
                             .collection('teachers').doc(userUID).profileImage
@@ -215,7 +224,7 @@ class SignUp extends Component {
                     <div class="input-field col s12">
                         <select className="select-css browser-default" id="studentTeacher" required>
                             <option value="" disabled selected>Are you a Student or Teacher</option>
-                            <option value="teachers">Teachers</option>
+                            <option value='teachers'>Teachers</option>
                             <option value="students">Student</option>
                         </select>
 
@@ -229,6 +238,7 @@ class SignUp extends Component {
 
                     </div>
                     <button className="btn z-depth-1">Sign Up</button>
+                    
                     <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                         <button className="btn z-depth-1" style={{ margin: '10px' }}>Sign In</button>
                     </Link>

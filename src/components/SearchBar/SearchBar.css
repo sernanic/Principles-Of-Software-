@@ -20,6 +20,14 @@
 .container{
     display: flex;
 }
+.searchContainer .form{
+  
+  
+}
+.searchContainer .searchBar{
+  width: 30%;
+  
+}
 
 .topic{
     border: 0;

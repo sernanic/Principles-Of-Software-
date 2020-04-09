@@ -50,6 +50,7 @@ const SignIn = props => {
                     <Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                         <button className="btn z-depth-1 buttonStyle">Sign Up</button>
                     </Link>
+
                     <button className="btn z-depth-1 buttonStyle">Sign In</button>
                     <Link to="/"><button className="btn z-depth-1 buttonStyle">Home</button></Link>
                 </div>

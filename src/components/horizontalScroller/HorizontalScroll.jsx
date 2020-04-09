@@ -14,12 +14,14 @@ const HorizontalScroll = () => {
      // returns array of [email, displayName, profileImageUrl]
     // When using states and functions 
     //the function name must start with a capital letter
+    
     function GetuserInfo() {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()
         const [userfavoriteSubject, setUserfavoriteSubject] = useState()
         const [userUniversity, setUserUniversity] = useState()
+        
         const docRef = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
             .collection('teachers').doc(firebase.auth().currentUser.uid)
         docRef.get().then(function (doc) {
@@ -39,26 +41,30 @@ const HorizontalScroll = () => {
 
     
 
-
     function UserPost() 
     {
         const userInfo = GetuserInfo()
-        const favoriteSubject = userInfo[3]
+        // const [newInfo, setNewInfo] = useState()
+        // const update =()=>{
+        //     setNewInfo(userInfo)
+        // }
         console.log(auth.currentUser.photoURL);
         
         const [posts, setPosts] = useState([])
-        useEffect(() => {
+        useEffect((newInfo) => {
+            // const userInfo = GetuserInfo()
             const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection(auth.currentUser.photoURL)
                 .orderBy('datePosted', 'desc').limit(100)
-                .onSnapshot((snapshot) => {
+                .onSnapshot((snapshot) => 
+                {
                     const newPost = snapshot.docs.map((doc) => ({
                         id: doc.id,
                         ...doc.data()
                     }))
-                    const favoriteSubjecctPost = newPost.filter((item) => {
-                        return item.category != 'Biology';
-                    })
-                    setPosts(favoriteSubjecctPost)
+                    // const favoriteSubjecctPost = newPost.filter((item) => {
+                    //     return item.category != 'Biology'
+                    // })
+                    setPosts(newPost)
                 })
             return () => unsubscribe()
         }, [])

@@ -3,6 +3,8 @@ import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
 import SideNav from '../SideNav/SideNav'
 import './AddOpportunity.css'
+import {Link} from 'react-router-dom'
+
 const University = firebase.firestore().collection("fau")
 
 class AddResearchPost extends Component {
@@ -63,22 +65,24 @@ class AddResearchPost extends Component {
         let { profName } = this.state;
         const { image } = this.state;
         const { url } = this.state;
-        researchCategory = document.getElementById("researchCategory").value
         var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() ;
+        var dt = new Date();
+        var secs = (dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours()))*today.getDate();
 
         console.log(image.name)
         var newUrl = ''
         // Create a reference to the file we want to download
         let storeRef = firebase.storage().ref().child(`images/${image.name}`);
         storeRef.getDownloadURL().then(function (output) {
-        
-            firebase.firestore().collection("fau").doc("fauInfo").collection(researchCategory).doc(position).set({
+
+            firebase.firestore().collection("fau").doc("fauInfo").collection(document.getElementById("researchCategory").value).doc(position).set({
                 position: position,
-                category: researchCategory,
+                category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
+                dateInSeconds:secs,
                 imageUrl: output
             }).then(() => {
                 // this.setState({ position: "" })
@@ -95,14 +99,14 @@ class AddResearchPost extends Component {
 
                 // assign each doc field a value
                 position: position,
-                category: researchCategory,
+                category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
                 imageUrl: output
 
             }).then(() => {
-                
+
                 researchCategory = ''
                 console.log("Document successfully written!");
 
@@ -132,47 +136,57 @@ class AddResearchPost extends Component {
 
     render() {
         return (
-            
-            <React.Fragment>
-                <SideNav/>
-                <form onSubmit={this.OnSubmit} className="addOpportunity">
 
-                <h4>Add time entry form</h4>
-                <div className='marginOnsideNav'>
-                    <label>Research Position Name</label>
-                    <input type="text" value={this.position} onChange={(x) =>
-                        this.setState({ position: x.currentTarget.value })
-                    } />
+                <div>
+                <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
+                    flex: 1, flexDirection: 'column', justifyContent: 'center',
+                    alignItems: 'center', borderRadius: '10px',
+                }} >
+
+                    <h4 style={{marginTop:'5%',alignSelf:'center'}}>Add Research Opportunity</h4>
+                    <div className='marginOnsideNav'>
+                        <label>Research Position Name</label>
+                        <input type="text" value={this.position} onChange={(x) =>
+                            this.setState({ position: x.currentTarget.value })
+                        } />
+                    </div>
+                    <div class="marginOnsideNav input-field col s12">
+                        <select className="select-css browser-default" id="researchCategory" required>
+                            <option value="" disabled selected>Category</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Biology">Biology</option>
+                        </select>
+
+                    </div>
+                    
+                    <div className='marginOnsideNav'>
+                        <label>Research Description</label>
+                        <input type="text" value={this.description} onChange={(x) =>
+                            this.setState({ description: x.currentTarget.value })
+                        } />
+                    </div>
+                    <div className='marginOnsideNav'>
+                        <label>Your Name</label>
+                        <input type="text" value={this.profName} onChange={(x) =>
+                            this.setState({ profName: x.currentTarget.value })
+                        } />
+                    </div>
+                    <div className='marginOnsideNav'>
+                        <progress value={this.state.progress} max="100" />
+                        <input type="file" onChange={this.handleChange.bind(this)} />
+                        <br />
+                        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
+                    </div>
+                    <button className='marginOnsideNav'>Add Research Post</button>
+                    {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
+                    <button className="searchButton btn z-depth-1 buttonStyle">
+                    <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
+                    </button>
+
+                </form>
+
                 </div>
-                <div className='marginOnsideNav'>
-                    <label>Category</label>
-                    <select id="researchCategory">
-                        <option value="Computer Science">Computer Science</option>
-                        <option value="Biology">Biology</option>
-                    </select>
-                </div>
-                <div className='marginOnsideNav'>
-                    <label>Research Description</label>
-                    <input type="text" value={this.description} onChange={(x) =>
-                        this.setState({ description: x.currentTarget.value })
-                    } />
-                </div>
-                <div className='marginOnsideNav'>
-                    <label>Your Name</label>
-                    <input type="text" value={this.profName} onChange={(x) =>
-                        this.setState({ profName: x.currentTarget.value })
-                    } />
-                </div>
-                <div  className='marginOnsideNav'>
-                    <progress value={this.state.progress} max="100" />
-                    <input type="file" onChange={this.handleChange.bind(this)} />
-                    <br />
-                    <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
-                </div>
-                <button className='marginOnsideNav'>Add Research Post</button>
-            </form>
-            </React.Fragment>
-            
+
         )
     }
 
