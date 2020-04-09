@@ -28,7 +28,7 @@ const SideNav = props => {
             });
 
         }
-        catch(err){
+        catch (err) {
             const docRefStudetns = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('studetns').doc(firebase.auth().currentUser.uid)
             docRefStudetns.get().then(function (doc) {
                 // Document was found in the cache. If no cached document exists,
@@ -84,6 +84,9 @@ const SideNav = props => {
 
                                     <li><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
                                         <Link to="researchOpportunity" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} >Add research Opportunity</Link>
+                                    </li>
+                                    <li><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
+                                        <Link to="addPublishedResearchPaper" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} >Add Published Research Paper</Link>
                                     </li>
                                     <li><i class="fa fa-address-card-o" style={{ color: "#9FA3AF" }}></i> <Link to="SignUp" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Sign Up</Link></li>
                                     <li><i class="fa fa-sign-in" aria-hidden="true" style={{ color: "#9FA3AF" }}></i> <Link to="SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Sign In</Link></li>

@@ -3,7 +3,7 @@ import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
 import SideNav from '../SideNav/SideNav'
 import './AddOpportunity.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const University = firebase.firestore().collection("fau")
 
@@ -66,9 +66,9 @@ class AddResearchPost extends Component {
         const { image } = this.state;
         const { url } = this.state;
         var today = new Date();
-        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() ;
+        var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var dt = new Date();
-        var secs = (dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours()))*today.getDate();
+        var secs = (dt.getSeconds() + (60 * dt.getMinutes()) + (60 * 60 * dt.getHours())) * today.getDate();
 
         console.log(image.name)
         var newUrl = ''
@@ -82,7 +82,7 @@ class AddResearchPost extends Component {
                 description: description,
                 professorName: profName,
                 datePosted: date,
-                dateInSeconds:secs,
+                dateInSeconds: secs,
                 imageUrl: output
             }).then(() => {
                 // this.setState({ position: "" })
@@ -136,14 +136,13 @@ class AddResearchPost extends Component {
 
     render() {
         return (
-
-                <div>
+            <div>
                 <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
                     flex: 1, flexDirection: 'column', justifyContent: 'center',
                     alignItems: 'center', borderRadius: '10px',
                 }} >
 
-                    <h4 style={{marginTop:'5%',alignSelf:'center'}}>Add Research Opportunity</h4>
+                    <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
                     <div className='marginOnsideNav'>
                         <label>Research Position Name</label>
                         <input type="text" value={this.position} onChange={(x) =>
@@ -158,7 +157,7 @@ class AddResearchPost extends Component {
                         </select>
 
                     </div>
-                    
+
                     <div className='marginOnsideNav'>
                         <label>Research Description</label>
                         <input type="text" value={this.description} onChange={(x) =>
@@ -180,12 +179,12 @@ class AddResearchPost extends Component {
                     <button className='marginOnsideNav'>Add Research Post</button>
                     {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
                     <button className="searchButton btn z-depth-1 buttonStyle">
-                    <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
+                        <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
                     </button>
 
                 </form>
 
-                </div>
+            </div>
 
         )
     }
