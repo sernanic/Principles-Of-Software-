@@ -7,18 +7,18 @@ import auth from '../../firebase/index'
 import { UserConsumer } from '../../UserProvider'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import firebase from '../../firebase'
-import {userEmail, userdisplayName, userProfileImage,favoriteSubject,University} from '../../getUserInfo/getUserInfo'
-
+import { userEmail, userdisplayName, userProfileImage, favoriteSubject, University } from '../../getUserInfo/getUserInfo'
+import MobileNavBar from '../MobileNavBar/MobileNavBar'
 import './Home.css'
 
-   
+
 const Home = props => {
 
 
-     // returns array of [email, displayName, profileImageUrl]
+    // returns array of [email, displayName, profileImageUrl]
     // When using states and functions 
     //the function name must start with a capital letter
-    
+
     function GetuserInfo() {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
@@ -39,39 +39,33 @@ const Home = props => {
             console.log("Error getting cached document:", error);
         });
 
-        return [userEmail, userdisplayName, userProfileImage,favoriteSubject,userfavoriteSubject,userUniversity]
+        return [userEmail, userdisplayName, userProfileImage, favoriteSubject, userfavoriteSubject, userUniversity]
 
     }
 
     const userInfo = GetuserInfo()
+
     return (
-        <UserConsumer>
-            {currentUser => {
-                    return (
-                        <div style={{flex:1,justifyContent:'space-between',overflowX: 'hidden'}}>
-                        
-                        <SideNav />
-                        {/* <div className="mainView" style={{ overflowY: 'hidden', overflowX: 'hidden' }}> */}
+        <div style={{ flex: 1, justifyContent: 'space-between', overflowX: 'hidden' }}>
 
-                            <div className="InfoContainer" >
-                                {/* <h1>{currentUser}</h1> */}
-                                <SearchBar />
-                                <div>
-                                    {/* <h1>{userEmail}</h1> */}
-                                    <h1 className="opportunityTitle" style={{fontSize: '24px'}}>Recent Opportunites</h1>
-                                    <VerticalScroll />
-                                </div>
-                                
-                                <h2 className="mainSubject">{userInfo[4]}</h2>
-                                <HorizontalScroll />
-                            </div>
+            <SideNav />
 
-                        {/* </div> */}
-                    </div>
-                    )
-                }
-            }
-        </UserConsumer>
+            <div className="InfoContainer" >
+
+                {/* <SearchBar /> */}
+                <MobileNavBar/>
+                <div>
+                    <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
+                    <VerticalScroll />
+                </div>
+
+                <h2 className="mainSubject">{userInfo[4]}</h2>
+                <HorizontalScroll />
+
+            </div>
+
+            {/* </div> */}
+        </div>
     )
 }
 
