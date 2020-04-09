@@ -11,7 +11,8 @@ import { UserConsumer } from '../../UserProvider'
 const SideNav = props => {
     // When using states and functions 
     //the function name must start with a capital letter
-    function GetuserInfo() {
+    function GetuserInfo() 
+    {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()
@@ -46,15 +47,6 @@ const SideNav = props => {
     }
 
 
-
-    try {
-        const userInfo = GetuserInfo()
-    }
-    catch (err) {
-
-        console.log('nope');
-
-    }
     const userInfo = GetuserInfo()
 
     return (

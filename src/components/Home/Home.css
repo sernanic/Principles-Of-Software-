@@ -52,3 +52,9 @@ h2{
     height: 0;
   }
   
+
+  @media (max-width: 1026px) {
+    .InfoContainer { 
+        margin-left: 0px;
+    }
+}

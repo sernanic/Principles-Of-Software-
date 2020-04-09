@@ -36,18 +36,24 @@
     position: relative;
     
 }
+.datePosted{
+    display: block;
+}
 
-@media(max-width:1050px){
+
+
+@media (max-width: 1026px) {
     .LittleCard{
-        padding-right: 5%;
+        width: 90%;
         
+    }
+    .LittleCard img{
+        width: 80px;
+        height:50px;
+    }
+    .datePosted{
+        display: none;
     }
 }
 
-@media(max-width:750px){
-    .LittleCard{
-        padding-right: 5%;
-        width: 60%;
-        
-    }
-}
+
