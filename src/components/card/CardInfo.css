@@ -1,0 +1,57 @@
+.CardInfo{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 600px;
+    background-color: white;
+    justify-content:space-around;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    
+}
+.CardInfo:hover{
+    box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.25);
+}
+.CardImage{
+    width: 300px;
+    height:400px;
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 10px;
+}
+.CardImage img{
+    width: 300px;
+    height:400px;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: 0;
+    top: 1;
+    position: relative;
+    
+}
+.offeredTitle{
+    font-size: 13px;
+    text-transform: capitalize;
+    
+}
+
+.offeredCategory{
+    font-size: 15px;
+    text-transform: capitalize;
+    font-weight: 500;
+    margin-top: 5px;
+    color: #BDBDBD;
+    
+}
+
+.Info{
+    /* margin-top: 50px; */
+    height: 100%;
+    margin-left: 20px;
+}
+.Info p{
+   margin: 0 auto;
+    
+}
