@@ -44,7 +44,7 @@ const SignIn = props => {
                     </select>
                 </div>
                 <button >Sign In</button>
-                <Link to="/" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+                <Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                     <button >Sign Up</button>
                 </Link>
                 <Link to="/"><button>Back Home</button></Link>

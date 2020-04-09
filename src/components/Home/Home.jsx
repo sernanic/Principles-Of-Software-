@@ -21,7 +21,7 @@ const Home = props => {
                             </div>
                             <div className="InfoContainer">
                                 <SearchBar/>
-                                <h1 style={{ paddingLeft: '25px', color: '#f1404b', marginBottom: '4px' }}>Recent Opportunites</h1>
+                                <h1 className="opportu"style={{ paddingLeft: '25px', color: '#1B274A', marginBottom: '3px',fontSize:'24px' }}>Recent Opportunites</h1>
                                 <VerticalScroll />
                                 <h2 className="mainSubject">{props.mainSubject}</h2>
                                 <HorizontalScroll />

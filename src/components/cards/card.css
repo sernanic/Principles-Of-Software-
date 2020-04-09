@@ -3,7 +3,7 @@
     height:180px;
     overflow: hidden;
     border-radius: 12px;
-    box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 10px 12px 3px rgba(0, 0, 0, 0.144);
     margin-left: 20px;
     position: relative;
     flex: 0 0 auto;
@@ -11,7 +11,7 @@
     
 }
 .Card:hover{
-    box-shadow: 0 10px 10px rgba(0,0,0,0.25);
+    box-shadow: 7px 12px 14px rgba(0,0,0,0.25);
 
 }
 .descriptionRow{
@@ -121,13 +121,13 @@
 }
 .Info p{
    margin: 0 auto;
-    
 }
 
 .offeredTitle{
-    font-size: 13px;
+    font-size: 16px;
     text-transform: capitalize;
-    
+    color: #1B274A;
+    font-weight: 500;
 }
 
 .offeredCategory{
@@ -135,7 +135,7 @@
     text-transform: capitalize;
     font-weight: 500;
     margin-top: 5px;
-    color: #BDBDBD;
+    color: #9FA3AF;
     
 }
 

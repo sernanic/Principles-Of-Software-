@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import firebase from 'firebase/app'
 import 'firebase/firebase-auth'
 import UserProvider from './UserProvider'
-
+import 'materialize-css/dist/css/materialize.min.css';
 const App = () => {
     var user = auth.currentUser
     if (user) {

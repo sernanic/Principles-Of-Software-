@@ -8,6 +8,10 @@ height:320px;
 width: 550px;
 padding:0px 20px 20px 20px;
 -ms-overflow-style: none;
+background-color: rgba(240, 240, 240, 0.596);
+border-radius: 14px;
+
+
 }
 
  /* Hide scrollbar for Chrome, Safari and Opera */

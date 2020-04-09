@@ -135,7 +135,7 @@ class AddResearchPost extends Component {
             
             <React.Fragment>
                 <SideNav/>
-                <form onSubmit={this.OnSubmit}>
+                <form onSubmit={this.OnSubmit} className="addOpportunity">
 
                 <h4>Add time entry form</h4>
                 <div className='marginOnsideNav'>
