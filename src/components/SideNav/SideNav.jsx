@@ -11,8 +11,7 @@ import { UserConsumer } from '../../UserProvider'
 const SideNav = props => {
     // When using states and functions 
     //the function name must start with a capital letter
-    function GetuserInfo() 
-    {
+    function GetuserInfo() {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()

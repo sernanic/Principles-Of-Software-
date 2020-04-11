@@ -3,7 +3,7 @@ import HorizontalScroll from '../horizontalScroller/HorizontalScroll'
 import VerticalScroll from '../VerticalScroll/VerticalScroll'
 import AddResearchPost from '../AddOpportunity/AddResearchPost'
 import SideNav from "../SideNav/SideNav"
-import RecentPaper from "../RecentPaper/RecentPaper"
+import Carousel from "../RecentPaper/Carousel"
 import auth from '../../firebase/index'
 import { UserConsumer } from '../../UserProvider'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -59,7 +59,9 @@ const Home = props => {
                     <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
                     <VerticalScroll />
                 </div>
-                <RecentPaper />
+
+                <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Published Papers</h1>
+                <Carousel />
 
                 <h2 className="mainSubject">{userInfo[4]}</h2>
                 <HorizontalScroll />
