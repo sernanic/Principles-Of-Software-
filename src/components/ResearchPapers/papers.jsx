@@ -75,7 +75,7 @@ class papers extends Component {
         let storeRef = firebase.storage().ref().child(`images/${image.name}`);
         storeRef.getDownloadURL().then(function (output) {
 
-            firebase.firestore().collection("fau").doc("researchPapers").collection(researchCategory).doc(title).set({
+            firebase.firestore().collection("fau").doc("researchPapers").collection(document.getElementById("researchCategory").value).doc(title).set({
                 title: title,
                 category: document.getElementById("researchCategory").value,
                 description: description,
@@ -101,6 +101,7 @@ class papers extends Component {
                 description: description,
                 profName: profName,
                 datePosted: date,
+                dateInSeconds: secs,
                 imageUrl: output
 
             }).then(() => {
@@ -140,11 +141,11 @@ class papers extends Component {
                     alignItems: 'center', borderRadius: '10px',
                 }} >
 
-                    <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
+                    <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Published Research Paper</h4>
                     <div className='marginOnsideNav'>
-                        <label>Research Title Name</label>
+                        <label>Research Paper Name</label>
                         <input type="text" value={this.title} onChange={(x) =>
-                            this.setState({ position: x.currentTarget.value })
+                            this.setState({ title: x.currentTarget.value })
                         } />
                     </div>
                     <div class="marginOnsideNav input-field col s12">
@@ -177,7 +178,7 @@ class papers extends Component {
                     <button className='marginOnsideNav'>Add Research Post</button>
                     {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
                     <button className="searchButton btn z-depth-1 buttonStyle">
-                        <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
+                        <Link to="/Signin" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
                     </button>
 
                 </form>

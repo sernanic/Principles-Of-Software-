@@ -15,8 +15,8 @@
     box-shadow: 4px 5px 4px rgba(0, 0, 0, 0.25);
 }
 .CardImage{
-    width: 300px;
-    height:400px;
+    width: 250px;
+    height:250px;
     overflow: hidden;
     border-radius: 12px;
     margin: 10px;

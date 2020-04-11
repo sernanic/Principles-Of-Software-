@@ -16,7 +16,7 @@ function UserPost(sortBy = "POST_DESC") {
 
     useEffect(() => {
         const unsubscribe = firebase.firestore().collection("fau").doc("researchPapers").collection("AllResearchPapers")
-            .orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction).limit(1)
+            .orderBy('datePosted', 'desc').limit(1)
             .onSnapshot((snapshot) => {
                 const newPost = snapshot.docs.map((doc) => ({
                     id: doc.id,
@@ -39,7 +39,7 @@ const RecentPaper = () => {
                     imageUrl={post.imageUrl}
                     title={post.title}
                     description={post.description}
-                    datePosted={post.datePosted} />
+                    datePosted={post.dataPosted} />
             )}
         </div>
     )

@@ -1,34 +1,26 @@
 body{
-    background-color: #f2f2f2;
-  }
-  
-  .mainView{
-      display: flex;
-      flex-direction: column;
-  }
-  
-  .addOpportunity{
-    background-color: #f2f2f2;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px #dddd;
-    width: 160%;
-    margin-left: 300px;
-  
-  }
-  form .marginOnsideNav{
-    margin-left: 300px;
-  }
+  background-color: #f2f2f2;
+}
 
-  form h4{
-    margin: 0 0 1rem;
-  }
-  
-  form div{
-    margin-bottom: 0.5rem;
-    color:'white'
-  }
-  
-  form label{
-    display: block;
-  }
+.mainView{
+    display: flex;
+    flex-direction: column;
+}
+
+
+form .marginOnsideNav{
+  margin-left: 300px;
+}
+
+form h4{
+  margin: 0 0 1rem;
+}
+
+form div{
+  margin-bottom: 0.5rem;
+  color:'white'
+}
+
+form label{
+  display: block;
+}

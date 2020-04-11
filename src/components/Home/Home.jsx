@@ -3,6 +3,7 @@ import HorizontalScroll from '../horizontalScroller/HorizontalScroll'
 import VerticalScroll from '../VerticalScroll/VerticalScroll'
 import AddResearchPost from '../AddOpportunity/AddResearchPost'
 import SideNav from "../SideNav/SideNav"
+import RecentPaper from "../RecentPaper/RecentPaper"
 import auth from '../../firebase/index'
 import { UserConsumer } from '../../UserProvider'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -53,11 +54,12 @@ const Home = props => {
             <div className="InfoContainer" >
 
                 {/* <SearchBar /> */}
-                <MobileNavBar/>
+                <MobileNavBar />
                 <div>
                     <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
                     <VerticalScroll />
                 </div>
+                <RecentPaper />
 
                 <h2 className="mainSubject">{userInfo[4]}</h2>
                 <HorizontalScroll />
