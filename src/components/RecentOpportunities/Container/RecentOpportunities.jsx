@@ -39,13 +39,14 @@ const RecentOpportunities = () => {
             <div className="HorizontalView">
                 {posts.map((post) =>
                     <CardInfo
-                    uid={post.uid}
+                    id={post.id}
                     imageUrl={post.imageUrl}
                     opportunityName={post.position}
                     categoryName={post.category}
                     description={post.description}
                     proffessorName={post.proffessorName}
                     datePosted = {post.datePosted}
+                    views={post.views}
                     /> 
                 )}
             </div>
