@@ -4,7 +4,7 @@ import { storage } from '../../firebase/index'
 import SideNav from '../SideNav/SideNav'
 import './AddOpportunity.css'
 import { Link } from 'react-router-dom'
-
+import { UserInfoContext } from '../../UserProvider'
 
 class AddResearchPost extends Component {
     constructor(props) {
@@ -17,11 +17,13 @@ class AddResearchPost extends Component {
             position: '',
             description: '',
             profName: '',
+            userStatus: ''
         }
 
         this.OnSubmit = this.OnSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
+        this.GetuserStatus = this.GetuserStatus.bind(this);
     }
     handleChange = e => {
         if (e.target.files[0]) {
@@ -85,13 +87,15 @@ class AddResearchPost extends Component {
 
 
             firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection(document.getElementById("researchCategory").value).doc(postId).set({
+                id:postId,
                 position: position,
                 category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
                 dateInSeconds: secs,
-                imageUrl: output
+                imageUrl: output,
+                views:0
             }).then(() => {
                 // this.setState({ opportunityName: "" })
                 // this.setState({ description: "" })
@@ -105,12 +109,14 @@ class AddResearchPost extends Component {
             firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection("allResearchPost").doc(postId).set({
 
                 // assign each doc field a value
+                id:postId,
                 position: position,
                 category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
-                imageUrl: output
+                imageUrl: output,
+                views:0
 
             }).then(() => {
 
@@ -118,16 +124,18 @@ class AddResearchPost extends Component {
                 firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
                     .collection("allUsers").doc(firebase.auth().currentUser.uid).collection('userPosts').doc(postId).set({
                         // assign each doc field a value
+                        id:postId,
                         position: position,
                         category: document.getElementById("researchCategory").value,
                         description: description,
                         professorName: profName,
                         datePosted: date,
-                        imageUrl: output
-                    }).then(()=>{
+                        imageUrl: output,
+                        views:0
+                    }).then(() => {
                         console.log('user post has been added to his collection of posts');
-                        
-                    }).catch(function(error){
+
+                    }).catch(function (error) {
                         console.log('user post has NOT been added to his collection of posts');
                     })
                 console.log("Document successfully written in allResearchPost!");
@@ -155,61 +163,89 @@ class AddResearchPost extends Component {
             }
         });
     }
+    GetuserStatus = () => {
+
+
+        // Teachers and Students are stored in the same collection
+        const docRef = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
+            .collection('allUsers').doc(firebase.auth().currentUser.uid)
+        docRef.get().then(function (doc) {
+            console.log(doc.data().userStaus);
+            
+            const userStatus = doc.data().userStaus
+            this.setState(() => ({ userStatus }));
+
+
+        }).catch(function (error) {
+            console.log(error);
+            console.log(error.message);
+        });
+    }
 
     render() {
-        return (
+        const userStatus = this.state.userStatus
+        console.log(userStatus);
+        
+        if (userStatus != 'teachers') {
+            return (
 
-            <div>
-                <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
-                    flex: 1, flexDirection: 'column', justifyContent: 'center',
-                    alignItems: 'center', borderRadius: '10px',
-                }} >
+                <div>
+                    <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
+                        flex: 1, flexDirection: 'column', justifyContent: 'center',
+                        alignItems: 'center', borderRadius: '10px',
+                    }} >
 
-                    <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
-                    <div className='marginOnsideNav'>
-                        <label>Research Position Name</label>
-                        <input type="text" value={this.position} onChange={(x) =>
-                            this.setState({ position: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div class="marginOnsideNav input-field col s12">
-                        <select className="select-css browser-default" id="researchCategory" required>
-                            <option value="" disabled selected>Category</option>
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Biology">Biology</option>
-                        </select>
+                        <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
+                        <div className='marginOnsideNav'>
+                            <label>Research Position Name</label>
+                            <input type="text" value={this.position} onChange={(x) =>
+                                this.setState({ position: x.currentTarget.value })
+                            } />
+                        </div>
+                        <div class="marginOnsideNav input-field col s12">
+                            <select className="select-css browser-default" id="researchCategory" required>
+                                <option value="" disabled selected>Category</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Biology">Biology</option>
+                            </select>
 
-                    </div>
+                        </div>
 
-                    <div className='marginOnsideNav'>
-                        <label>Research Description</label>
-                        <input type="text" value={this.description} onChange={(x) =>
-                            this.setState({ description: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div className='marginOnsideNav'>
-                        <label>Your Name</label>
-                        <input type="text" value={this.profName} onChange={(x) =>
-                            this.setState({ profName: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div className='marginOnsideNav'>
-                        <progress value={this.state.progress} max="100" />
-                        <input type="file" onChange={this.handleChange.bind(this)} />
-                        <br />
-                        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
-                    </div>
-                    <button className='marginOnsideNav'>Add Research Post</button>
-                    {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
-                    <button className="searchButton btn z-depth-1 buttonStyle">
-                        <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
-                    </button>
+                        <div className='marginOnsideNav'>
+                            <label>Research Description</label>
+                            <input type="text" value={this.description} onChange={(x) =>
+                                this.setState({ description: x.currentTarget.value })
+                            } />
+                        </div>
+                        <div className='marginOnsideNav'>
+                            <label>Your Name</label>
+                            <input type="text" value={this.profName} onChange={(x) =>
+                                this.setState({ profName: x.currentTarget.value })
+                            } />
+                        </div>
+                        <div className='marginOnsideNav'>
+                            <progress value={this.state.progress} max="100" />
+                            <input type="file" onChange={this.handleChange.bind(this)} />
+                            <br />
+                            <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
+                        </div>
+                        <button className='marginOnsideNav'>Add Research Post</button>
+                        {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
+                        <button className="searchButton btn z-depth-1 buttonStyle">
+                            <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
+                        </button>
 
-                </form>
+                    </form>
 
-            </div>
-
-        )
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    <h1>you do not seem to have access to this feature</h1>
+                </div>
+            )
+        }
     }
 
 }
