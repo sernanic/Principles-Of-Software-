@@ -1,28 +1,14 @@
 import React, { useState, useEffect, Component } from 'react'
 import firebase from '../../firebase'
 import styled from 'styled-components'
-import './RecentPaper.css'
+import './Carousel.css'
 import Arrow from './card/Arrows'
 import ImageSlide from './card/ImageSlide'
 
 const Carousel = props => {
-    /* super(props)
-    constructor(props) {
-        this.state = {
-            currentImageIndex: 0,
-            image: null,
-            url: '',
-            title: '',
-            description: '',
-            profName: '',
-            datePosted: ''
-        };
-        this.nextSlide = this.nextSlide.bind(this);
-        this.previousSlide = this.previousSlide.bind(this);
-    } */
-
     function previousSlide() {
-        const lastIndex = this.state.imageUrl.length - 1;
+        const image = posts.imageUrl;
+        const lastIndex = image.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === 0;
         const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
@@ -33,7 +19,8 @@ const Carousel = props => {
     }
 
     function nextSlide() {
-        const lastIndex = this.state.imageUrl.length - 1;
+        const image = posts.imageUrl;
+        const lastIndex = image.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === lastIndex;
         const index = shouldResetIndex ? 0 : currentImageIndex + 1;
@@ -43,32 +30,28 @@ const Carousel = props => {
         });
     }
 
-    function GetInfo() {
-        const [userEmail, setuserEmail] = useState()
-        const [userProfileImage, setUserProfileImage] = useState()
-        const [userdisplayName, setUserdisplayName] = useState()
-        const [userfavoriteSubject, setUserfavoriteSubject] = useState()
-        const [userUniversity, setUserUniversity] = useState()
+    function UserPost(sortBy = "POST_DESC") {
+        const [posts, setPosts] = useState([])
 
-        const docRef = firebase.firestore().collection('fau').doc('researchPapers')
-            .collection('AllResearchPapers').doc(title)
-        docRef.get().then(function (doc) {
-            // Document was found in the cache. If no cached document exists,
-            setuserEmail(doc.data().email)
-            setUserProfileImage(doc.data().profileImageUrl)
-            setUserdisplayName(doc.data().displayName)
-            setUserfavoriteSubject(doc.data().favoriteSubject)
-            setUserUniversity(doc.data().University)
-        }).catch(function (error) {
-            console.log("Error getting cached document:", error);
-        });
+        useEffect(() => {
 
-        return [userEmail, userdisplayName, userProfileImage, favoriteSubject, userfavoriteSubject, userUniversity]
-
+            const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("AllResearchPost")
+                .orderBy('datePosted', 'desc').limit(6)
+                .onSnapshot((snapshot) => {
+                    const newPost = snapshot.docs.map((doc) =>
+                        ({
+                            id: doc.id,
+                            ...doc.data()
+                        }))
+                    setPosts(newPost)
+                })
+            return () => unsubscribe()
+        }, [sortBy])
+        return posts
     }
 
-    const userInfo = GetInfo()
-
+    const [sortBy, setSortBy] = useState("POST_DESC")
+    const posts = UserPost(sortBy)
     return (
         <div className="carousel">
             <Arrow
@@ -76,7 +59,7 @@ const Carousel = props => {
                 clickFunction={previousSlide()}
                 glyph="&#9664;" />
 
-            <ImageSlide url={imageUrl} />
+            <ImageSlide url={posts[currentImageIndex].imageUrl} />
 
             <Arrow
                 direction="right"
