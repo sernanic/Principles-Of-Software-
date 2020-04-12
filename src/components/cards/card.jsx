@@ -12,31 +12,32 @@ function Card(props) {
     return (
         <div style={{ alignContent: 'center' }}>
             {/* <!-- Modal Trigger --> */}
-            <a class="waves-effect waves-light modal-trigger" href={'#'+props.position}>
+            <a class="waves-effect waves-light modal-trigger" href={'#'+props.opportunityName} style={{width:'217px'}}>
                 <div className="Card">
                     
-                    <img  style={{height:'100%'}} src={props.image} height="150" width="150" />
+                    <img  style={{height:'100%'}} src={props.imageUrl} height="150" width="150" />
                 </div>
 
                 <div className="Info">
-                    <h3 className="offeredTitle">{props.position}</h3>
-                    <p className="offeredCategory" style={{ marginTop: '-8px' }}>{props.category}</p>
+                    <h3 className="offeredTitle">{props.opportunityName}</h3>
+                    <p className="offeredCategory" style={{ marginTop: '-8px' }}>{props.categoryName}</p>
                 </div>
             </a>
 
+
             {/* <!-- Modal Structure --> */}
-            <div id={props.position} class="modal" style={{borderBottomLeftRadius:'10px'}}>
-                <div class="modal-content" style={{backgroundColor:'#252c41',padding:'0px'}}>
+            <div id={props.opportunityName} class="modal" style={{borderBottomLeftRadius:'10px'}}>
+                <div class="modal-content" style={{backgroundColor:'#252c41',padding:'0px',objectFit:'cover'}}>
 
 
-                    <img  src={props.image} />
-
-
+                    <img  src={props.imageUrl} />
                     <div className="descriptionRow">
-                        <h4 style={{ marginLeft: '-10px' }}>{props.position}</h4>
-                        <button onClick={() => setmodalIsOpen(false)}>x</button>
+                        <h4 style={{ marginLeft: '-10px' }}>{props.opportunityName}</h4>
                     </div>
-                    <h6>Description</h6>
+                    <h2>Description</h2>
+                    <p style={{color:'white'}}>{props.description}</p>
+                    <p>{props.proffessorName}</p>
+                    <p>Date Posted {props.datePosted}</p>
                     
                 </div>
                 <div class="modal-footer">

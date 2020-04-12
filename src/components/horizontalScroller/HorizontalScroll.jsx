@@ -44,11 +44,12 @@ const HorizontalScroll = () => {
             {posts.map((post) =>
                 
                 <Card key={post.id}
-                    position={post.position}
-                    category={post.category}
-                    image={post.imageUrl}
-                    description={post.description}
-                    proffessorName={post.proffessorName} />
+                imageUrl={post.imageUrl}
+                opportunityName={post.position}
+                categoryName={post.category}
+                description={post.description}
+                proffessorName={post.proffessorName}
+                datePosted = {post.datePosted} />
             )}
 
         </div>

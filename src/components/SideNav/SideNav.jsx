@@ -15,6 +15,7 @@ const SideNav = props => {
         const [userEmail, setuserEmail] = useState()
         const [userProfileImage, setUserProfileImage] = useState()
         const [userdisplayName, setUserdisplayName] = useState()
+        const [userStatus, setUserStatus] = useState()
 
         const docRef = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('allUsers')
             .doc(firebase.auth().currentUser.uid)
@@ -22,6 +23,11 @@ const SideNav = props => {
             setuserEmail(doc.data().email)
             setUserProfileImage(doc.data().profileImageUrl)
             setUserdisplayName(doc.data().displayName)
+            setUserStatus(doc.data().userStaus)
+            if(userStatus == 'students'){
+                document.getElementById("statusTeacher").style.display = "none";
+
+            }
 
         }).catch(function (error) {
             console.log("Error getting cached document:", error);
@@ -32,7 +38,9 @@ const SideNav = props => {
         return [userEmail, userdisplayName, userProfileImage]
 
     }
-
+    function getUserStatus(){
+        
+    }
 
     const userInfo = GetuserInfo()
     return (
@@ -58,7 +66,7 @@ const SideNav = props => {
                         <li>
                             <NavLink to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} activeStyle={{ color: 'teal' }}><i class="fa fa-home"></i>Home</NavLink>
                         </li>
-                        <li><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
+                        <li id="statusTeacher"><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
                             <NavLink to="researchOpportunity" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} activeStyle={{ color: 'teal' }} >Add research Opportunity</NavLink>
                         </li>
                         <li><i class="fa fa-address-card-o" style={{ color: "#9FA3AF" }}></i>

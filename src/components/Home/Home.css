@@ -15,9 +15,10 @@ body{
 .opportunityTitle{
     font-family: 'Roboto', sans-serif;
     padding: 15px 0px 5px 25px ;
-     color: '#1B274A'; 
-     margin-bottom: '3px'; 
-     font-size: '24px'
+    color: '#1B274A'; 
+    margin-bottom: 13px;
+    margin-left: 20px; 
+    font-size: 24px
 }
 .mainSubject{
     margin-left: 40px;

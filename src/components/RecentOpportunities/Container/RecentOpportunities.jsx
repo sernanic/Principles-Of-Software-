@@ -8,7 +8,7 @@ const SORT_OPTIONS = {
     "POST_DESC": { column: "datePosted", direction: "desc" },
 }
 
-function UserPost() {
+function UserPost(sortBy = "POST_DESC") {
     const [posts, setPosts] = useState([])
    
     useEffect(() => 
@@ -16,7 +16,8 @@ function UserPost() {
 
         console.log(firebase.auth().currentUser.displayName);
         
-        const unsubscribe = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection("allResearchPost")
+        const unsubscribe = firebase.firestore().collection(firebase.auth().currentUser.displayName)
+        .doc("posts").collection("allResearchPost").orderBy(SORT_OPTIONS[sortBy].column, SORT_OPTIONS[sortBy].direction)
             .onSnapshot((snapshot) => 
             {
                 const newPost = snapshot.docs.map((doc) => 
@@ -27,7 +28,7 @@ function UserPost() {
                 setPosts(newPost)
             })
         return () => unsubscribe()
-    }, [])
+    }, [sortBy])
     return posts
 }
 

@@ -127,6 +127,16 @@
     text-transform: capitalize;
     color: #1B274A;
     font-weight: 500;
+    width: 85%;
+    margin: 1.946667rem -71px 1.168rem 0;
+}
+
+.postImage img{
+    border-style: none;
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .offeredCategory{
