@@ -3,7 +3,6 @@ import SideNav from "../SideNav/SideNav"
 import MobileNavBar from '../MobileNavBar/MobileNavBar'
 import './OpportunityInfo.css'
 
-
 const OpportunityInfo = props => {
 
  

@@ -58,10 +58,11 @@ const Home = props => {
                     <div className="InfoContainer" >
                         {/* <SearchBar /> */}
                         <MobileNavBar hello='sup' />
-                        <div>
-                            <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
+                        <div style={{height:'30%'}}>
+                            <h1 className="opportunityTitle" style={{ fontSize: '24px' }}><b>Recent Opportunites</b></h1>
                             <RecentOpportunities />
                         </div>
+                        <hr className ="seperator" style={{color:'black',width:'100%',marginTop:'2%'}}></hr>
                         <h2 className="mainSubject">{userInfo[3]}</h2>
                         <HorizontalScroll />
                     </div>

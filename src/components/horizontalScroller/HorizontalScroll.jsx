@@ -48,7 +48,7 @@ const HorizontalScroll = () => {
                 opportunityName={post.position}
                 categoryName={post.category}
                 description={post.description}
-                proffessorName={post.proffessorName}
+                professorName={post.professorName}
                 datePosted = {post.datePosted} />
             )}
 
