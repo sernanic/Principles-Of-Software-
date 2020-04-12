@@ -4,51 +4,21 @@ import "./SideNav.css";
 import { auth } from '../../firebase/index'
 import firebase from '../../firebase'
 import SearchResults from '../SearchResults/SearchResults'
-import { UserConsumer } from '../../UserProvider'
+import { UserInfoContext } from '../../UserProvider'
 
 
 // returns array of [email, displayName, profileImageUrl]
-const SideNav = props => {
-    // When using states and functions 
-    //the function name must start with a capital letter
-    function GetuserInfo() {
-        const [userEmail, setuserEmail] = useState()
-        const [userProfileImage, setUserProfileImage] = useState()
-        const [userdisplayName, setUserdisplayName] = useState()
-        const [userStatus, setUserStatus] = useState()
+const SideNav = props => 
+{
 
-        const docRef = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('allUsers')
-            .doc(firebase.auth().currentUser.uid)
-        docRef.get().then(function (doc) {
-            setuserEmail(doc.data().email)
-            setUserProfileImage(doc.data().profileImageUrl)
-            setUserdisplayName(doc.data().displayName)
-            setUserStatus(doc.data().userStaus)
-            if(userStatus == 'students'){
-                document.getElementById("statusTeacher").style.display = "none";
-
-            }
-
-        }).catch(function (error) {
-            console.log("Error getting cached document:", error);
-
-        });
-
-
-        return [userEmail, userdisplayName, userProfileImage]
-
-    }
-    function getUserStatus(){
-        
-    }
-
-    const userInfo = GetuserInfo()
     return (
 
-        <div className="mainDrawer">
+        <UserInfoContext.Consumer>
+            {(userInfo)=>{
+                return(
+                    <div className="mainDrawer">
 
             <ul>
-
                 {/* Profile Info */}
                 <div>
                     <li><img src={userInfo[2]} alt="" height="100" width="100" className="profileImage" /></li>
@@ -80,6 +50,12 @@ const SideNav = props => {
             </ul>
 
         </div>
+
+                )
+            }}
+        </UserInfoContext.Consumer>
+        
+
 
     )
 
