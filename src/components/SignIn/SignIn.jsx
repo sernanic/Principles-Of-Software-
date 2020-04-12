@@ -9,31 +9,34 @@ import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 
 
-function createUser(event) {
-    event.preventDefault();
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-        var user = auth.currentUser;
-        // Empty the input once the user has signed up
-        console.log('user ' + user.email + ' signed in');
 
-    }).catch(function (error) {
-        // Handle Errors here.
-        console.log(error.message);
 
-    });
-}
-
-function returnMessage(){
-
-}
 
 const SignIn = props => {
+    function SignInUser(event) {
+        event.preventDefault();
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+            console.log('yese');
+
+            // redirect user to the home page
+            setTimeout(()=>{
+                props.history.push('/')
+            },2000)
+    
+        }).catch(function (error) {
+    
+            // Handle Errors here.
+            console.log(error.message);
+    
+        });
+        
+    }
     return (
 
         <React.Fragment>
-            <form onSubmit={createUser} className="container grey lighten-3 z-depth-1" style={{
+            <form onSubmit={SignInUser} className="container grey lighten-3 z-depth-1" style={{
                 flex: 1, flexDirection: 'column', justifyContent: 'center',
                 alignItems: 'center', borderRadius: '10px', marginTop: '5%'
             }}>
@@ -52,7 +55,6 @@ const SignIn = props => {
                     </Link>
 
                     <button className="btn z-depth-1 buttonStyle">Sign In</button>
-                    <Link to="/"><button className="btn z-depth-1 buttonStyle">Home</button></Link>
                 </div>
             </form>
 
