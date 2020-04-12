@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import firebase from '../../firebase'
 import styled from 'styled-components'
 import './RecentPaper.css'
-import Arrow from '../card/Arrows'
-import ImageSlide from '../card/ImageSlide'
+import Arrow from './card/Arrows'
+import ImageSlide from './card/ImageSlide'
 
-class Carousel {
+const Carousel = props => {
+    /* super(props)
     constructor(props) {
         this.state = {
             currentImageIndex: 0,
@@ -14,11 +15,13 @@ class Carousel {
             title: '',
             description: '',
             profName: '',
+            datePosted: ''
         };
         this.nextSlide = this.nextSlide.bind(this);
         this.previousSlide = this.previousSlide.bind(this);
-    }
-    previousSlide() {
+    } */
+
+    function previousSlide() {
         const lastIndex = this.state.imageUrl.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === 0;
@@ -29,7 +32,7 @@ class Carousel {
         });
     }
 
-    nextSlide() {
+    function nextSlide() {
         const lastIndex = this.state.imageUrl.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === lastIndex;
@@ -39,58 +42,47 @@ class Carousel {
             currentImageIndex: index
         });
     }
-    handleChange = e => {
-        if (e.target.files[0]) {
-            const image = e.target.files[0];
-            this.setState(() => ({ image }));
-        }
+
+    function GetInfo() {
+        const [userEmail, setuserEmail] = useState()
+        const [userProfileImage, setUserProfileImage] = useState()
+        const [userdisplayName, setUserdisplayName] = useState()
+        const [userfavoriteSubject, setUserfavoriteSubject] = useState()
+        const [userUniversity, setUserUniversity] = useState()
+
+        const docRef = firebase.firestore().collection('fau').doc('researchPapers')
+            .collection('AllResearchPapers').doc(title)
+        docRef.get().then(function (doc) {
+            // Document was found in the cache. If no cached document exists,
+            setuserEmail(doc.data().email)
+            setUserProfileImage(doc.data().profileImageUrl)
+            setUserdisplayName(doc.data().displayName)
+            setUserfavoriteSubject(doc.data().favoriteSubject)
+            setUserUniversity(doc.data().University)
+        }).catch(function (error) {
+            console.log("Error getting cached document:", error);
+        });
+
+        return [userEmail, userdisplayName, userProfileImage, favoriteSubject, userfavoriteSubject, userUniversity]
+
     }
 
-    GetuserInfo = () => {
+    const userInfo = GetInfo()
 
-        try {
-            const docRef = firebase.firestore().collection("fau").doc("researchPapers").collection("AllResearchPapers").doc(this.state.title)
-            docRef.get().then(function (doc) {
+    return (
+        <div className="carousel">
+            <Arrow
+                direction="left"
+                clickFunction={previousSlide()}
+                glyph="&#9664;" />
 
-                // gets user email
-                const title = doc.data().title
-                this.setState(() => ({ title }));
+            <ImageSlide url={imageUrl} />
 
-                // gets user profileImageUrl
-                const imageUrl = doc.data().imageUrl
-                this.setState(() => ({ imageUrl }));
-
-                // gets user displayName
-                const description = doc.data().description
-                this.setState(() => ({ description }));
-
-            }).catch(function (error) {
-                console.log("Error getting cached document:", error);
-
-            });
-
-        }
-        catch (err) {
-            console.log(err.message);
-
-        }
-    }
-    render() {
-        return (
-            <div className="carousel">
-                <Arrow
-                    direction="left"
-                    clickFunction={this.previousSlide}
-                    glyph="&#9664;" />
-
-                <ImageSlide url={this.state.imageUrl} />
-
-                <Arrow
-                    direction="right"
-                    clickFunction={this.nextSlide}
-                    glyph="&#9654;" />
-            </div>
-        );
-    }
+            <Arrow
+                direction="right"
+                clickFunction={nextSlide()}
+                glyph="&#9654;" />
+        </div>
+    );
 }
 export default Carousel 

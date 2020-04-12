@@ -59,10 +59,10 @@ const Home = props => {
                     <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
                     <VerticalScroll />
                 </div>
-
-                <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Published Papers</h1>
-                <Carousel />
-
+                <div id="carousel-container">
+                    <h1 className="carouselClass" style={{ fontSize: '24px' }}>Recent Published Papers</h1>
+                    <Carousel />
+                </div>
                 <h2 className="mainSubject">{userInfo[4]}</h2>
                 <HorizontalScroll />
 

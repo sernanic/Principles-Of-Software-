@@ -1,4 +1,4 @@
-.RecentPaper{
+.carousel{
 
   display: flex;
   flex-wrap: nowrap;
@@ -11,6 +11,6 @@
   float:right;
   }
      /* Hide scrollbar for Chrome, Safari and Opera */
- .RecentPaper::-webkit-scrollbar {
+ .carousel::-webkit-scrollbar {
     display: none;
   }
