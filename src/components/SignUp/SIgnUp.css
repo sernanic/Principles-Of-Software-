@@ -48,6 +48,9 @@
 
 .profileImage{
     border-radius: 150px;
-    margin-left: 30%;
+    margin-left: 40%;
     margin-top: 10%;
+}
+.erroMessage{
+	display: none;
 }

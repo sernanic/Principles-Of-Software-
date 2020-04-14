@@ -1,37 +1,70 @@
-import React, { useState, Component } from 'react'
-import './card.css'
+import React, { Component, useState } from 'react'
+import './CardInfo.css'
+// import Modal from 'react-modal';
 import M from "materialize-css";
+import firebase from '../../firebase'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 
-class Card extends Component {
-
+class CardInfo extends Component {
     constructor(props) {
         super(props);
         this.state = {
             show: false
         }
+        this.GetViewCount = this.GetViewCount.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
-
-
     componentDidMount() {
         M.AutoInit();
     }
-    handleClose = () => this.setState({show: false});
-    handleShow = () => this.setState({show: true});
+    // TO DO: Use install Bootstrap and
+    //use BootStrap modal exit event listener
+    //to update views
+    GetViewCount = () => {
 
+        var id = this.props.id
+        const docRef = firebase.firestore().collection('fau').doc('posts')
+            .collection('allResearchPost').doc(id)
+        docRef.get().then(function (doc) {
+
+            const docRef = firebase.firestore().collection('fau').doc('posts')
+                .collection('allResearchPost').doc(id)
+            const categoryRef = firebase.firestore().collection('fau').doc('posts')
+                .collection(doc.data().category).doc(id)
+
+            docRef.update({
+                views: doc.data().views + 1
+            })
+            categoryRef.update({
+                views: doc.data().views + 1
+            })
+            console.log(doc.data().views + 1);
+
+        }).catch(function (error) {
+            console.log(error);
+            console.log(error.message);
+        });
+    }
+    handleClose = () => {
+        this.setState({ show: false });
+        this.GetViewCount()
+    }
+    handleShow = () => this.setState({ show: true });
+
+    // Auto initialize all the things!
     render() {
+
         return (
             <div style={{ alignContent: 'center' }}>
                 {/* <!-- Modal Trigger --> */}
 
-                <div className="Card waves-effect waves-light" onClick={this.handleShow}>
 
-                    <img style={{ height: '100%' }} src={this.props.imageUrl} height="150" width="150" />
+                <div className="RecentCard waves-effect waves-light" style={{ width: '300px' }} onClick={this.handleShow}>
+                    <img style={{ height: '100%' }} src={this.props.imageUrl} />
                 </div>
 
                 <div className="Info">
@@ -49,8 +82,6 @@ class Card extends Component {
                         <p>
                             {this.props.description}
                         </p>
-                        <p>{this.props.professorName}</p>
-                        <p>Date Posted {this.props.datePosted}</p>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
@@ -63,6 +94,8 @@ class Card extends Component {
         )
     }
 
+
+
 }
 
-export default Card
+export default CardInfo

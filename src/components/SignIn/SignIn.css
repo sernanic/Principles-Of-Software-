@@ -1,8 +1,16 @@
 
+.container{
+    width: '50%'; 
+    height: '50%';
+    margin-top:'10%'
+}
 .container input{
     width: 40%;
 }
 
 .buttonStyle{
     margin: 5px;
+}
+@media(max-width:1026px){
+   
 }

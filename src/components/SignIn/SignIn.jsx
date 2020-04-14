@@ -7,7 +7,8 @@ import Home from '../Home/Home'
 import { withRouter } from 'react-router-dom';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
-
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 
 
@@ -21,42 +22,46 @@ const SignIn = props => {
             console.log('yese');
 
             // redirect user to the home page
-            setTimeout(()=>{
-                props.history.push('/')
-            },2000)
-    
+            setTimeout(() => {
+                props.history.push('SignInAnimation')
+            }, 50)
+
         }).catch(function (error) {
-    
+
             // Handle Errors here.
             console.log(error.message);
-    
+
         });
-        
+
     }
     return (
 
         <React.Fragment>
-            <form onSubmit={SignInUser} className="container grey lighten-3 z-depth-1" style={{
-                flex: 1, flexDirection: 'column', justifyContent: 'center',
-                alignItems: 'center', borderRadius: '10px', marginTop: '5%'
-            }}>
-                <div class="input-field" style={{marginTop:'8%'}}>
-                    <input type="email" id="email" required />
-                    <label for="signup-email">Email address</label>
-                </div>
-                <div class="input-field">
-                    <input type="password" id="password" required/>
-                    <label for="signup-password">Choose password</label>
-                </div>
-                <div style={{flex: 1, flexDirection: 'row',width:'30%',marginBottom:'10%'}}>
-                    
-                    <Link to="SignUp" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
+
+            <div  style={{marginTop:'10%'}} className="container grey lighten-3 z-depth-1">
+                <Form>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" id="email" required />
+                        <Form.Text className="text-muted">
+                            We'll never share your email with anyone else.
+                    </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" id="password" required />
+                    </Form.Group>
+                    <Link to="SignUp">
                         <button className="btn z-depth-1 buttonStyle">Sign Up</button>
                     </Link>
+                    {/* Use Button Instead of button if it does not work */}
+                    <button className="btn z-depth-1 buttonStyle" onClick={SignInUser}>
+                        Sign In
+                    </button>
+                </Form>
+            </div>
 
-                    <button className="btn z-depth-1 buttonStyle">Sign In</button>
-                </div>
-            </form>
 
         </React.Fragment>
     );
