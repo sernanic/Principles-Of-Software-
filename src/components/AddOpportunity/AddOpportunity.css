@@ -8,9 +8,7 @@ body{
   }
   
   
-  form .marginOnsideNav{
-    margin-left: 300px;
-  }
+  
 
   form h4{
     margin: 0 0 1rem;
@@ -23,4 +21,23 @@ body{
   
   form label{
     display: block;
+  }
+  .addResearchContainer{
+    display: flex;
+    flex-direction: row;
+    height: 50%;
+    width: 50%;
+    margin-left: 30%;
+  }
+  .researchContent{
+    padding: 10px;
+  }
+  .addResearchContainer h4 {
+    text-align: center;
+    margin-top: 5%;
+    
+  }
+
+  .erroMessage{
+    display: none;
   }

@@ -9,7 +9,23 @@ import { UserInfoContext } from '../../UserProvider'
 
 // returns array of [email, displayName, profileImageUrl]
 const SideNav = props => {
+    function GetUserStatus() {
 
+        // Teachers and Students are stored in the same collection
+        const docRef = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
+            .collection('allUsers').doc(firebase.auth().currentUser.uid)
+        docRef.get().then(function (doc) {
+
+            if(doc.data().userStaus == 'students'){
+                document.getElementById('statusTeacher').style.display ='none'
+            }
+
+        }).catch(function (error) {
+            console.log(error);
+            console.log(error.message);
+        });
+    }
+    GetUserStatus()
     return (
 
         <UserInfoContext.Consumer>
@@ -34,7 +50,7 @@ const SideNav = props => {
                                     <li>
                                         <NavLink to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} activeStyle={{ color: 'teal' }}><i class="fa fa-home"></i>Home</NavLink>
                                     </li>
-                                    <li id="statusTeacher"><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
+                                    <li id="statusTeacher" value={userInfo[5]}><i class="fa fa-plus-square" style={{ color: "#9FA3AF" }}></i>
                                         <NavLink to="researchOpportunity" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }} activeStyle={{ color: 'teal' }} >Add research Opportunity</NavLink>
                                     </li>
                                     <li><i class="fa fa-address-card-o" style={{ color: "#9FA3AF" }}></i>

@@ -1,5 +1,6 @@
 import React, { useState, Component } from 'react'
 import './card.css'
+import M from "materialize-css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -14,6 +15,11 @@ class Card extends Component {
         }
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
+    }
+
+
+    componentDidMount() {
+        M.AutoInit();
     }
     handleClose = () => this.setState({show: false});
     handleShow = () => this.setState({show: true});

@@ -51,6 +51,7 @@ const HorizontalScroll = () => {
                 professorName={post.professorName}
                 datePosted = {post.datePosted} />
             )}
+            <Card/>
 
         </div>
     )

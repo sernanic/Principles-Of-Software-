@@ -8,8 +8,8 @@ import './Home.css'
 import { Link } from 'react-router-dom'
 import 'materialize-css/dist/css/materialize.min.css';
 import { UserInfoContext } from '../../UserProvider'
-
-
+import MostPopular from '../MostPopular/MostPopular'
+import AddResearchPost from '../AddOpportunity/AddResearchPost'
 const Home = props => {
 
     // Note: When using states in functions,
@@ -42,7 +42,7 @@ const Home = props => {
 
         }).catch(function (error) {
             console.log(error);
-            console.log(error.message); 
+            console.log(error.message);
         });
         return [userEmail, userdisplayName, userProfileImage, userfavoriteSubject, userUniversity, userStatus]
     }
@@ -51,23 +51,35 @@ const Home = props => {
     var user = firebase.auth().currentUser
     if (user) {
         const userInfo = GetuserInfo()
+        
         return (
-            <div style={{ flex: 1, justifyContent: 'space-between', overflowX: 'hidden' }}>
-                <UserInfoContext.Provider value={userInfo}>
-                    <SideNav />
-                    <div className="InfoContainer" >
-                        {/* <SearchBar /> */}
-                        <MobileNavBar hello='sup' />
-                        <div style={{height:'30%'}}>
-                            <h1 className="opportunityTitle" style={{ fontSize: '24px' }}><b>Recent Opportunites</b></h1>
-                            <RecentOpportunities />
+            <React.Fragment>
+                
+                <div style={{ flex: 1, justifyContent: 'space-between', overflowX: 'hidden' }}>
+
+                    <UserInfoContext.Provider value={userInfo}>
+                        <div style={{display:'none'}}>
+                            <AddResearchPost/>
                         </div>
-                        <hr className ="seperator" style={{color:'black',width:'100%',marginTop:'2%'}}></hr>
-                        <h2 className="mainSubject">{userInfo[3]}</h2>
-                        <HorizontalScroll />
-                    </div>
-                </UserInfoContext.Provider>
-            </div>
+                        <SideNav />
+                        <div className="InfoContainer" >
+                            {/* <SearchBar /> */}
+                            <div className="mobileContainer">
+                                <MobileNavBar />
+                            </div>
+
+                            {/* <MostPopular /> */}
+                            <div style={{ height: '30%' }}>
+                                <h1 className="opportunityTitle" style={{ fontSize: '24px' }}><b>Recent Opportunites</b></h1>
+                                <RecentOpportunities />
+                            </div>
+                            <hr className="seperator" style={{ color: 'black', width: '100%', marginTop: '0%' }}></hr>
+                            <h2 className="mainSubject" style={{ fontSize: '24px' }}><b>{userInfo[3]}</b></h2>
+                            <HorizontalScroll />
+                        </div>
+                    </UserInfoContext.Provider>
+                </div>
+            </React.Fragment>
         )
     } else {
         return (

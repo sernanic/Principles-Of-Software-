@@ -10,7 +10,7 @@ body{
     flex-direction: column;
     width: 100%;
     height: 100%;
-    margin-left: 300px;
+    margin-left: 250px;
     align-content: space-between
     
 }
@@ -59,9 +59,15 @@ h2{
     height: 0;
   }
   
+  .mobileContainer{
+    display: none;
+}
 
   @media (max-width: 1026px) {
     .InfoContainer { 
         margin-left: 0px;
+    }
+    .mobileContainer{
+        display: block;
     }
 }
