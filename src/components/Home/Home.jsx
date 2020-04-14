@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import HorizontalScroll from '../horizontalScroller/HorizontalScroll'
 import RecentOpportunities from '../RecentOpportunities/Container/RecentOpportunities'
 import SideNav from "../SideNav/SideNav"
-import Carousel from "../RecentPaper/Carousel"
 import auth from '../../firebase/index'
 import { UserConsumer } from '../../UserProvider'
 import SearchBar from '../../components/SearchBar/SearchBar'
@@ -45,8 +44,22 @@ const Home = props => {
         });
         return [userEmail, userdisplayName, userProfileImage, userfavoriteSubject, userUniversity]
     }
-
+    function UserPost() {
+        const array = []
+        useEffect((newInfo) => {
+            const unsubscribe = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("researchPapers").collection("AllResearchPapers").orderBy("dataPosted", "desc").limit(6)
+                .onSnapshot((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        array.push(doc.data().imageUrl)
+                        console.log()
+                    });
+                });
+            return () => unsubscribe()
+        }, [])
+        return array
+    }
     const userInfo = GetuserInfo()
+    const paper = UserPost()
 
     return (
         <div style={{ flex: 1, justifyContent: 'space-between', overflowX: 'hidden' }}>
@@ -62,7 +75,6 @@ const Home = props => {
                 </div>
                 <div id="carousel-container">
                     <h1 className="carouselClass" style={{ fontSize: '24px' }}>Recent Published Papers</h1>
-                    {/* <Carousel /> */}
                 </div>
                 <h2 className="mainSubject">{userInfo[4]}</h2>
                 <h2 className="mainSubject">{userInfo[3]}</h2>
