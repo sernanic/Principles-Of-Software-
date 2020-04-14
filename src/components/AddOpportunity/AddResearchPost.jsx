@@ -1,11 +1,9 @@
 import React, { useState, Component } from 'react'
 import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
-import SideNav from '../SideNav/SideNav'
 import './AddOpportunity.css'
 import { Link } from 'react-router-dom'
 
-const University = firebase.firestore().collection("fau")
 
 class AddResearchPost extends Component {
     constructor(props) {
@@ -64,7 +62,6 @@ class AddResearchPost extends Component {
         let { description } = this.state;
         let { profName } = this.state;
         const { image } = this.state;
-        const { url } = this.state;
         var today = new Date();
         var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         var dt = new Date();
@@ -76,7 +73,17 @@ class AddResearchPost extends Component {
         let storeRef = firebase.storage().ref().child(`images/${image.name}`);
         storeRef.getDownloadURL().then(function (output) {
 
-            firebase.firestore().collection("fau").doc("fauInfo").collection(document.getElementById("researchCategory").value).doc(position).set({
+            var randomInt = Math.ceil(Math.random() * 10)
+            var postId = firebase.auth().currentUser.uid + '|' + randomInt
+
+            console.log('going to set document');
+            var universityName = firebase.auth().currentUser.displayName
+            console.log(universityName);
+            console.log(document.getElementById("researchCategory").value);
+            console.log(randomInt);
+
+
+            firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection(document.getElementById("researchCategory").value).doc(postId).set({
                 position: position,
                 category: document.getElementById("researchCategory").value,
                 description: description,
@@ -85,17 +92,16 @@ class AddResearchPost extends Component {
                 dateInSeconds: secs,
                 imageUrl: output
             }).then(() => {
-                // this.setState({ position: "" })
+                // this.setState({ opportunityName: "" })
                 // this.setState({ description: "" })
                 researchCategory = ''
-                console.log("Document successfully written!");
-
+                console.log("Document successfully written in catetegory document!");
             }).catch(function (error) {
                 console.error("Error writing document: ", error);
             });
 
 
-            firebase.firestore().collection("fau").doc("fauInfo").collection("allResearchPost").doc(position).set({
+            firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection("allResearchPost").doc(postId).set({
 
                 // assign each doc field a value
                 position: position,
@@ -108,7 +114,22 @@ class AddResearchPost extends Component {
             }).then(() => {
 
                 researchCategory = ''
-                console.log("Document successfully written!");
+                firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
+                    .collection("allUsers").doc(firebase.auth().currentUser.uid).collection('userPosts').doc(postId).set({
+                        // assign each doc field a value
+                        position: position,
+                        category: document.getElementById("researchCategory").value,
+                        description: description,
+                        professorName: profName,
+                        datePosted: date,
+                        imageUrl: output
+                    }).then(() => {
+                        console.log('user post has been added to his collection of posts');
+
+                    }).catch(function (error) {
+                        console.log('user post has NOT been added to his collection of posts');
+                    })
+                console.log("Document successfully written in allResearchPost!");
 
             }).catch(function (error) {
                 console.error("Error writing document: ", error);
@@ -136,6 +157,7 @@ class AddResearchPost extends Component {
 
     render() {
         return (
+
             <div>
                 <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
                     flex: 1, flexDirection: 'column', justifyContent: 'center',
@@ -191,4 +213,4 @@ class AddResearchPost extends Component {
 
 }
 
-export { University, AddResearchPost as default } 
+export { AddResearchPost as default } 

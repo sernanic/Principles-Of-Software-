@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import firebase from '../../firebase'
 import styled from 'styled-components'
-import Card from '../cards/card'
-import './VerticalScroll.css'
-import LittleCardInfo from '../List/LittleCard/LittleCardInfo'
+import Card from '../../components/cards/card'
+import '../List'
+import '../horizontalScroller/HorizontalScroll.css'
+import CardInfo from './CardInfo'
 
 const SORT_OPTIONS = {
     "POST_ASC": { column: "datePosted", direction: "asc" },
@@ -17,7 +18,7 @@ function UserPost(sortBy = "POST_DESC") {
     {
         
         const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("allResearchPost")
-            .orderBy('datePosted', 'desc').limit(8)
+            .orderBy('datePosted', 'asc')
             .onSnapshot((snapshot) => 
             {
                 const newPost = snapshot.docs.map((doc) => 
@@ -32,21 +33,24 @@ function UserPost(sortBy = "POST_DESC") {
     return posts
 }
 
-const HorizontalScroll = () => {
+const RecentOpportunities = () => {
     const [sortBy, setSortBy] = useState("POST_DESC")
     const posts = UserPost(sortBy)
     return (
-            <div className="VerticallView">
+            <div className="HorizontalView">
                 {posts.map((post) =>
-                    <LittleCardInfo
+                    <CardInfo
                     imageUrl={post.imageUrl}
                     opportunityName={post.position}
                     categoryName={post.category}
-                    datePosted={post.datePosted} /> 
+                    description={post.description}
+                    proffessorName={post.proffessorName}
+                    datePosted = {post.datePosted}
+                    /> 
                 )}
             </div>
     )
 }
 
-export default HorizontalScroll
+export default RecentOpportunities
 

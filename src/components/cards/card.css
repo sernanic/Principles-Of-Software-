@@ -7,7 +7,6 @@
     margin-left: 20px;
     position: relative;
     flex: 0 0 auto;
-    padding-bottom: 10px;
     
 }
 .Card:hover{
@@ -138,4 +137,3 @@
     color: #9FA3AF;
     
 }
-

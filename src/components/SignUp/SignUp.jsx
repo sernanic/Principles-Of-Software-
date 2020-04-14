@@ -65,7 +65,8 @@ class SignUp extends Component {
 
     // creates a user
 
-    createUser = event => {
+    createUser = event => 
+    {
         event.preventDefault();
         var email = document.getElementById('signup-email').value;
         var password = document.getElementById('signup-password').value;
@@ -94,14 +95,11 @@ class SignUp extends Component {
                 // student or teacher
                 photoURL: document.getElementById('favoriteSubject').value,
             }).then(function () {
-                // the code within this function adds a document to the teachers' collection
-                // with more info about the teacher. The name of the dorument is the 
-                // key value genereated for uid
                 let storeRef = firebase.storage().ref().child(`userImages/${image.name}`);
-                storeRef.getDownloadURL().then(function (output) 
+                // get stored image url
+                storeRef.getDownloadURL().then(function (ImageUrl) 
                 {
-                    console.log('this is it',document.getElementById('studentTeacher').value);
-                    
+                    //Add document in the allUsers' collection with user info
                     firebase.firestore().collection(university).doc("users")
                     .collection('allUsers').doc(userUID).set({
 
@@ -109,17 +107,12 @@ class SignUp extends Component {
                         displayName: document.getElementById('displayName').value,
                         University: auth.currentUser.displayName,
                         email: auth.currentUser.email,
-                        profileImageUrl: output,
+                        profileImageUrl: ImageUrl,
                         favoriteSubject:document.getElementById('favoriteSubject').value,
-                        userStaus:document.getElementById('studentTeacher').value
+                        userStaus:document.getElementById('studentTeacher').value,
+                        posts:new Array(50).fill({})
 
                     }).then(() => {
-                        console.log();
-                        
-                        console.log('profileImage',
-                            firebase.firestore().collection(university).doc("users")
-                            .collection('teachers').doc(userUID).profileImage
-                        );
                         
                         auth.currentUser.updateProfile(
                         {
@@ -130,14 +123,11 @@ class SignUp extends Component {
                             photoURL: document.getElementById('favoriteSubject').value,
                         }).then(function () {
                             console.log("further info has been added");
-                            console.log(auth.currentUser.photoURL);
 
                         }).catch(function (error) {
                             // An error happened.
                             console.log(error.message);
                         });
-                        console.log(" profile Image and document have been written", auth.currentUser.uid);
-
                     }).catch(function (error) {
                         console.error("Error writing document: ", error);
                     });
@@ -174,7 +164,6 @@ class SignUp extends Component {
             email = ''
             password = ''
             displayName = ''
-            console.log(auth.currentUser.displayName.value);
 
         }).catch(function (error) {
             // Handle Errors here.
@@ -183,6 +172,9 @@ class SignUp extends Component {
             console.log(error);
             console.log(error.message);
         });
+        setTimeout(()=>{
+            this.props.history.push('/')
+        },2000)
     }
     render() {
         return (
@@ -224,7 +216,7 @@ class SignUp extends Component {
                     <div class="input-field col s12">
                         <select className="select-css browser-default" id="studentTeacher" required>
                             <option value="" disabled selected>Are you a Student or Teacher</option>
-                            <option value='teachers'>Teachers</option>
+                            <option value='teachers'>Teacher</option>
                             <option value="students">Student</option>
                         </select>
 
@@ -242,17 +234,10 @@ class SignUp extends Component {
                     <Link to="SignIn" style={{ textDecoration: "none", color: "black", fontWeight: "600", zIndex: '100' }}>
                         <button className="btn z-depth-1" style={{ margin: '10px' }}>Sign In</button>
                     </Link>
-                    <Link to="/"><button className="btn z-depth-1 buttonStyle" style={{ margin: '5px' }}>Home   </button></Link>
                 </form>
-
-
             </React.Fragment>
         );
     }
 }
-
-
-
-
 
 export default SignUp;

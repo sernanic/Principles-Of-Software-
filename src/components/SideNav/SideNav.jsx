@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import "./SideNav.css";
 import { auth } from '../../firebase/index'
 import firebase from '../../firebase'
@@ -40,6 +40,18 @@ const SideNav = props => {
             });
         }
 
+        const docRef = firebase.firestore().collection(auth.currentUser.displayName).doc('users').collection('allUsers')
+            .doc(firebase.auth().currentUser.uid)
+        docRef.get().then(function (doc) {
+            setuserEmail(doc.data().email)
+            setUserProfileImage(doc.data().profileImageUrl)
+            setUserdisplayName(doc.data().displayName)
+
+        }).catch(function (error) {
+            console.log("Error getting cached document:", error);
+
+        });
+
 
         return [userEmail, userdisplayName, userProfileImage]
 
@@ -47,7 +59,6 @@ const SideNav = props => {
 
 
     const userInfo = GetuserInfo()
-
     return (
         <UserConsumer>
             {currentUser => {
@@ -92,9 +103,7 @@ const SideNav = props => {
         </UserConsumer>
     )
 
-
 }
-
 
 
 export default SideNav;

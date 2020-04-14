@@ -5,9 +5,18 @@ import './Carousel.css'
 import Arrow from './card/Arrows'
 import ImageSlide from './card/ImageSlide'
 
-const Carousel = props => {
-    function previousSlide() {
-        const image = posts.imageUrl;
+class Carousel extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentImageIndex: 0
+        };
+        this.nextSlide = this.nextSlide.bind(this);
+        this.previousSlide = this.previousSlide.bind(this);
+    }
+    previousSlide() {
+        const image = this.state.url;
         const lastIndex = image.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === 0;
@@ -18,8 +27,8 @@ const Carousel = props => {
         });
     }
 
-    function nextSlide() {
-        const image = posts.imageUrl;
+    nextSlide() {
+        const image = this.state.url;
         const lastIndex = image.length - 1;
         const { currentImageIndex } = this.state;
         const shouldResetIndex = currentImageIndex === lastIndex;
@@ -29,43 +38,41 @@ const Carousel = props => {
             currentImageIndex: index
         });
     }
+    render() {
+        function UserPost() {
+            console.log("Hello");
 
-    function UserPost(sortBy = "POST_DESC") {
-        const [posts, setPosts] = useState([])
-
-        useEffect(() => {
-
-            const unsubscribe = firebase.firestore().collection("fau").doc("fauInfo").collection("AllResearchPost")
-                .orderBy('datePosted', 'desc').limit(6)
-                .onSnapshot((snapshot) => {
-                    const newPost = snapshot.docs.map((doc) =>
-                        ({
+            const [posts, setPosts] = useState([])
+            useEffect((newInfo) => {
+                // const userInfo = GetuserInfo()
+                const unsubscribe = firebase.firestore().collection("fau").doc("researchPapers").collection("AllResearchPapers")
+                    .onSnapshot((snapshot) => {
+                        const newPost = snapshot.docs.map((doc) => ({
                             id: doc.id,
                             ...doc.data()
                         }))
-                    setPosts(newPost)
-                })
-            return () => unsubscribe()
-        }, [sortBy])
-        return posts
+                        setPosts(newPost)
+                    })
+                return () => unsubscribe()
+            }, [])
+            return posts
+        }
+        console.log("Hello")
+        const posts = UserPost()
+        return (
+            < div className="carousel" >
+                <Arrow
+                    direction="left"
+                    clickFunction={this.previousSlide}
+                    glyph="&#9664;" />
+                <ImageSlide />
+                <Arrow
+                    direction="right"
+                    clickFunction={this.nextSlide}
+                    glyph="&#9654;" />
+
+            </div >
+        );
     }
-
-    const [sortBy, setSortBy] = useState("POST_DESC")
-    const posts = UserPost(sortBy)
-    return (
-        <div className="carousel">
-            <Arrow
-                direction="left"
-                clickFunction={previousSlide()}
-                glyph="&#9664;" />
-
-            <ImageSlide url={posts[currentImageIndex].imageUrl} />
-
-            <Arrow
-                direction="right"
-                clickFunction={nextSlide()}
-                glyph="&#9654;" />
-        </div>
-    );
 }
 export default Carousel 
