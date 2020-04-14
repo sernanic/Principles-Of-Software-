@@ -1,51 +1,68 @@
-import React, { useState } from 'react'
+import React, { useState, Component } from 'react'
 import './card.css'
-import Modal from 'react-modal';
 import M from "materialize-css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
 
-Modal.setAppElement('#root')
-function Card(props) {
-    const [modalIsOpen, setmodalIsOpen] = useState(false)
+class Card extends Component {
 
-    // Auto initialize all the things!
-    M.AutoInit();
-    return (
-        <div style={{ alignContent: 'center' }}>
-            {/* <!-- Modal Trigger --> */}
-            <a class="waves-effect waves-light modal-trigger" href={'#'+props.position}>
-                <div className="Card">
-                    
-                    <img  style={{height:'100%'}} src={props.image} height="150" width="150" />
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: false
+        }
+        this.handleClose = this.handleClose.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+    }
+
+
+    componentDidMount() {
+        M.AutoInit();
+    }
+    handleClose = () => this.setState({show: false});
+    handleShow = () => this.setState({show: true});
+
+    render() {
+        return (
+            <div style={{ alignContent: 'center' }}>
+                {/* <!-- Modal Trigger --> */}
+
+                <div className="Card waves-effect waves-light" onClick={this.handleShow}>
+
+                    <img style={{ height: '100%' }} src={this.props.imageUrl} height="150" width="150" />
                 </div>
 
                 <div className="Info">
-                    <h3 className="offeredTitle">{props.position}</h3>
-                    <p className="offeredCategory" style={{ marginTop: '-8px' }}>{props.category}</p>
+                    <h3 className="offeredTitle">{this.props.opportunityName}</h3>
+                    <p className="offeredCategory" style={{ marginTop: '-8px' }}>{this.props.categoryName}</p>
                 </div>
-            </a>
 
-            {/* <!-- Modal Structure --> */}
-            <div id={props.position} class="modal" style={{borderBottomLeftRadius:'10px'}}>
-                <div class="modal-content" style={{backgroundColor:'#252c41',padding:'0px'}}>
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{this.props.opportunityName}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Image src={this.props.imageUrl} fluid style={{ borderRadius: '15px' }} />
+                        <h3 style={{ marginTop: '3%' }}>Description</h3>
+                        <p>
+                            {this.props.description}
+                        </p>
+                        <p>{this.props.professorName}</p>
+                        <p>Date Posted {this.props.datePosted}</p>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleClose}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
-
-                    <img  src={props.image} />
-
-
-                    <div className="descriptionRow">
-                        <h4 style={{ marginLeft: '-10px' }}>{props.position}</h4>
-                        <button onClick={() => setmodalIsOpen(false)}>x</button>
-                    </div>
-                    <h6>Description</h6>
-                    
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-                </div>
             </div>
+        )
+    }
 
-        </div>
-    )
 }
 
 export default Card

@@ -3,8 +3,9 @@ import firebase from '../../firebase'
 import { storage } from '../../firebase/index'
 import './AddOpportunity.css'
 import { Link } from 'react-router-dom'
-
-
+import { UserInfoContext } from '../../UserProvider'
+import Form from 'react-bootstrap/Form'
+import Image from 'react-bootstrap/Image'
 class AddResearchPost extends Component {
     constructor(props) {
         super(props);
@@ -16,11 +17,14 @@ class AddResearchPost extends Component {
             position: '',
             description: '',
             profName: '',
+            userStatus: '',
+
         }
 
         this.OnSubmit = this.OnSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleUpload = this.handleUpload.bind(this);
+        this.GetuserStatus = this.GetuserStatus.bind(this);
     }
     handleChange = e => {
         if (e.target.files[0]) {
@@ -73,7 +77,7 @@ class AddResearchPost extends Component {
         let storeRef = firebase.storage().ref().child(`images/${image.name}`);
         storeRef.getDownloadURL().then(function (output) {
 
-            var randomInt = Math.ceil(Math.random() * 10)
+            var randomInt = Math.ceil(Math.random(1000) * 10)
             var postId = firebase.auth().currentUser.uid + '|' + randomInt
 
             console.log('going to set document');
@@ -84,13 +88,15 @@ class AddResearchPost extends Component {
 
 
             firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection(document.getElementById("researchCategory").value).doc(postId).set({
+                id: postId,
                 position: position,
                 category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
                 dateInSeconds: secs,
-                imageUrl: output
+                imageUrl: output,
+                views: 0
             }).then(() => {
                 // this.setState({ opportunityName: "" })
                 // this.setState({ description: "" })
@@ -104,12 +110,14 @@ class AddResearchPost extends Component {
             firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("posts").collection("allResearchPost").doc(postId).set({
 
                 // assign each doc field a value
+                id: postId,
                 position: position,
                 category: document.getElementById("researchCategory").value,
                 description: description,
                 professorName: profName,
                 datePosted: date,
-                imageUrl: output
+                imageUrl: output,
+                views: 0
 
             }).then(() => {
 
@@ -117,12 +125,19 @@ class AddResearchPost extends Component {
                 firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
                     .collection("allUsers").doc(firebase.auth().currentUser.uid).collection('userPosts').doc(postId).set({
                         // assign each doc field a value
+                        id: postId,
                         position: position,
                         category: document.getElementById("researchCategory").value,
                         description: description,
                         professorName: profName,
+                        professorEmail: firebase.auth().currentUser.email,
                         datePosted: date,
+<<<<<<< HEAD
                         imageUrl: output
+=======
+                        imageUrl: output,
+                        views: 0,
+>>>>>>> upstream/master
                     }).then(() => {
                         console.log('user post has been added to his collection of posts');
 
@@ -154,61 +169,98 @@ class AddResearchPost extends Component {
             }
         });
     }
+    GetuserStatus = () => {
+
+        const docRef = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc('users')
+            .collection('allUsers').doc(firebase.auth().currentUser.uid)
+        docRef.get().then(function (doc) {
+            console.log(doc.data().userStaus);
+
+            const userStatus = doc.data().userStaus
+            this.setState(() => ({ userStatus }));
+
+
+        }).catch(function (error) {
+            console.log(error);
+            document.getElementById('erroMessage').style.display = 'block'
+            document.getElementById('erroMessage').textContent = error.message
+        });
+    }
 
     render() {
-        return (
+        const userStatus = this.state.userStatus
+        console.log(userStatus);
 
-            <div>
-                <form onSubmit={this.OnSubmit} className="container grey lighten-3 z-depth-1" style={{
-                    flex: 1, flexDirection: 'column', justifyContent: 'center',
-                    alignItems: 'center', borderRadius: '10px',
-                }} >
+        if (userStatus != 'teachers') {
+            return (
+                <React.Fragment>
 
-                    <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
-                    <div className='marginOnsideNav'>
-                        <label>Research Position Name</label>
-                        <input type="text" value={this.position} onChange={(x) =>
-                            this.setState({ position: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div class="marginOnsideNav input-field col s12">
-                        <select className="select-css browser-default" id="researchCategory" required>
-                            <option value="" disabled selected>Category</option>
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Biology">Biology</option>
-                        </select>
+                    <UserInfoContext.Consumer>
+                        {(userInfo) => {
+                            return (
+                                <div className="addResearchContainer">
 
-                    </div>
+                                    <div style={{flex:1,flexDirection:'column'}}>
 
-                    <div className='marginOnsideNav'>
-                        <label>Research Description</label>
-                        <input type="text" value={this.description} onChange={(x) =>
-                            this.setState({ description: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div className='marginOnsideNav'>
-                        <label>Your Name</label>
-                        <input type="text" value={this.profName} onChange={(x) =>
-                            this.setState({ profName: x.currentTarget.value })
-                        } />
-                    </div>
-                    <div className='marginOnsideNav'>
-                        <progress value={this.state.progress} max="100" />
-                        <input type="file" onChange={this.handleChange.bind(this)} />
-                        <br />
-                        <img src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" />
-                    </div>
-                    <button className='marginOnsideNav'>Add Research Post</button>
-                    {/* <Link to="/" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link> */}
-                    <button className="searchButton btn z-depth-1 buttonStyle">
-                        <Link to="/SignIn" style={{ textDecoration: "none", color: "#1B274A", fontWeight: "600", zIndex: '100' }}>Home</Link>
-                    </button>
+                                        <form onSubmit={this.OnSubmit} className="grey lighten-3 z-depth-1 " style={{
+                                            flex: 1, flexDirection: 'column', justifyContent: 'center',
+                                            alignItems: 'center', borderRadius: '10px',
+                                        }} >
 
-                </form>
+                                            <h4 style={{ marginTop: '5%', alignSelf: 'center' }}>Add Research Opportunity</h4>
 
-            </div>
+                                            <Form.Group controlId="password">
+                                                <Form.Control type="text" placeholder="Research Position Name" value={this.position} onChange={(x) =>
+                                                    this.setState({ position: x.currentTarget.value })
+                                                } />
+                                            </Form.Group>
 
-        )
+
+                                            <Form.Control as="select" custom required id='researchCategory'>
+                                                <option value="" disabled selected>Category</option>
+                                                <option value="Computer Science">Computer Science</option>
+                                                <option value="Biology">Biology</option>
+                                            </Form.Control>
+
+
+                                            <textarea type="text"  rows="30"value={this.description} onChange={(x) =>
+                                                this.setState({ description: x.currentTarget.value })
+                                            } placeholder="Research Description" />
+
+
+                                            <input type="text" value={this.profName} onChange={(x) =>
+                                                this.setState({ profName: x.currentTarget.value })
+                                            } placeholder="Your Name" />
+
+
+                                            <input type="file" onChange={this.handleChange.bind(this)} required />
+                                            <br />
+                                            <Image src={this.state.url || 'http://via.placeholder.com/400x300'} alt="Uploaded images" height="300" width="400" rounded />
+
+                                            <button className=" btn z-depth-1 buttonStyle" >Add Research Post</button>
+                                            <button className=" btn z-depth-1 buttonStyle">
+                                                <Link to="/" style={{ textDecoration: "none", color: "#1B274A", zIndex: '100' }}>Home</Link>
+                                            </button>
+
+                                            <p id="erroMessage"></p>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            )
+                        }}
+                    </UserInfoContext.Consumer>
+
+                </React.Fragment>
+
+            )
+        } else {
+            return (
+                <div>
+                    <h1>you do not seem to have access to this feature</h1>
+                </div>
+            )
+        }
     }
 
 }

@@ -12,18 +12,14 @@
     box-shadow: 7px 12px 14px rgba(0,0,0,0.25);
 
 }
+
 .RecentCard img{
     height: 100%;
     width: 100%;
     object-fit: cover;
     object-position: 30% 70%;
 }
-.descriptionRow{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-.close-image{
-    border: none;
-    background-color: black;
+
+.Info{
+    height: 30%;
 }
