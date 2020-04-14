@@ -47,43 +47,22 @@ const Home = props => {
             console.log(error);
             console.log(error.message);
         });
-<<<<<<< HEAD
-        return [userEmail, userdisplayName, userProfileImage, userfavoriteSubject, userUniversity]
-    }
-    function UserPost() {
-        const array = []
-        useEffect((newInfo) => {
-            const unsubscribe = firebase.firestore().collection(firebase.auth().currentUser.displayName).doc("researchPapers").collection("AllResearchPapers").orderBy("dataPosted", "desc").limit(6)
-                .onSnapshot((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        array.push(doc.data().imageUrl)
-                        console.log()
-                    });
-                });
-            return () => unsubscribe()
-        }, [])
-        return array
-    }
-    const userInfo = GetuserInfo()
-    const paper = UserPost()
-=======
         return [userEmail, userdisplayName, userProfileImage, userfavoriteSubject, userUniversity, userStatus]
     }
 
->>>>>>> upstream/master
 
     var user = firebase.auth().currentUser
     if (user) {
         const userInfo = GetuserInfo()
-        
+
         return (
             <React.Fragment>
-                
+
                 <div style={{ flex: 1, justifyContent: 'space-between', overflowX: 'hidden' }}>
 
                     <UserInfoContext.Provider value={userInfo}>
-                        <div style={{display:'none'}}>
-                            <AddResearchPost/>
+                        <div style={{ display: 'none' }}>
+                            <AddResearchPost />
                         </div>
                         <SideNav />
                         <div className="InfoContainer" >
@@ -109,20 +88,6 @@ const Home = props => {
         return (
             <div>
 
-<<<<<<< HEAD
-                {/* <SearchBar /> */}
-                <MobileNavBar hello='sup' />
-                <div>
-                    <h1 className="opportunityTitle" style={{ fontSize: '24px' }}>Recent Opportunites</h1>
-                    <RecentOpportunities />
-                </div>
-                <div id="carousel-container">
-                    <h1 className="carouselClass" style={{ fontSize: '24px' }}>Recent Published Papers</h1>
-                </div>
-                <h2 className="mainSubject">{userInfo[4]}</h2>
-                <h2 className="mainSubject">{userInfo[3]}</h2>
-                <HorizontalScroll />
-=======
                 <div className="container grey lighten-3 z-depth-1" style={{
                     flex: 1, flexDirection: 'column', justifyContent: 'center',
                     alignItems: 'center', borderRadius: '10px', marginTop: '5%'
@@ -137,7 +102,6 @@ const Home = props => {
                         </Link>
                     </div>
                 </div>
->>>>>>> upstream/master
             </div>
         )
     }

@@ -27,14 +27,9 @@ body{
     /* font-family: -apple-system, system-ui, BlinkMacSystemFont; */
     padding: 15px 0px 5px 25px ;
     color: '#1B274A'; 
-<<<<<<< HEAD
-    margin-bottom: '3px'; 
-    font-size: '24px'
-=======
     margin-bottom: 13px;
     margin-left: 20px; 
     font-size: 24px
->>>>>>> upstream/master
 }
 .mainSubject{
     margin-left: 40px;

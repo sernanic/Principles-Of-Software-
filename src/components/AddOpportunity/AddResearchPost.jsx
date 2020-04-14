@@ -132,12 +132,8 @@ class AddResearchPost extends Component {
                         professorName: profName,
                         professorEmail: firebase.auth().currentUser.email,
                         datePosted: date,
-<<<<<<< HEAD
-                        imageUrl: output
-=======
                         imageUrl: output,
                         views: 0,
->>>>>>> upstream/master
                     }).then(() => {
                         console.log('user post has been added to his collection of posts');
 
@@ -200,7 +196,7 @@ class AddResearchPost extends Component {
                             return (
                                 <div className="addResearchContainer">
 
-                                    <div style={{flex:1,flexDirection:'column'}}>
+                                    <div style={{ flex: 1, flexDirection: 'column' }}>
 
                                         <form onSubmit={this.OnSubmit} className="grey lighten-3 z-depth-1 " style={{
                                             flex: 1, flexDirection: 'column', justifyContent: 'center',
@@ -223,7 +219,7 @@ class AddResearchPost extends Component {
                                             </Form.Control>
 
 
-                                            <textarea type="text"  rows="30"value={this.description} onChange={(x) =>
+                                            <textarea type="text" rows="30" value={this.description} onChange={(x) =>
                                                 this.setState({ description: x.currentTarget.value })
                                             } placeholder="Research Description" />
 
